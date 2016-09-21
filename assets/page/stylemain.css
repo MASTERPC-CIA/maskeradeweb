@@ -1,0 +1,151 @@
+/* GLOBAL STYLES
+-------------------------------------------------- */
+/* Padding below the footer and lighter body text */
+
+/*body {
+  padding-bottom: 40px;
+  color: #5a5a5a;
+}*/
+
+#bq_logo{
+    padding-left: 105px;
+    padding-right: 105px;
+    height: 120px;
+}
+#bq_search{
+    height: 50px;
+    padding-left: 105px;
+    padding-right: 105px;
+}
+
+#search_products{
+  background-color: #9400D3;
+  color: #FFFFFF;
+}
+/* CUSTOMIZE THE NAVBAR
+-------------------------------------------------- */
+
+/* Special class on .container surrounding .navbar, used for positioning it into place. */
+.navbar-wrapper #bq_menu{
+    padding-left: 105px;
+    padding-right: 105px;
+}
+/*.navbar-wrapper {
+  position: absolute;
+  right: 0;
+  left: 0;
+  z-index: 20;
+}*/
+
+/* Flip around the padding for proper display in narrow viewports */
+.navbar-wrapper > .container {
+  padding-right: 0;
+  padding-left: 0;
+}
+.navbar-wrapper .navbar {
+  padding-right: 15px;
+  padding-left: 15px;
+  background-color: #9400D3;
+  font-size: 18px;
+  font-weight: 900;
+  vertical-align: middle;
+}
+.navbar-default .navbar-nav > .active > a {
+    color: #FFFFFF;
+    background-color: #BA55D3;
+}
+.navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active > a:hover {
+    color: #000000;
+}
+.navbar-wrapper .navbar .container {
+  width: auto;
+}
+
+.navbar-default .navbar-nav > li > a{
+    color: #FFFFFF;
+}
+.navbar-default .navbar-nav > li > a:focus, .navbar-default .navbar-nav > li > a:hover {
+    color: #000000;
+}
+
+/* MARKETING CONTENT
+-------------------------------------------------- */
+
+/* Center align the text within the three columns below the carousel */
+.marketing .col-lg-4 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+.marketing h2 {
+  font-weight: normal;
+}
+.marketing .col-lg-4 p {
+  margin-right: 10px;
+  margin-left: 10px;
+}
+#home_sec2{
+    margin-left: 105px;
+    margin-right: 105px;
+}
+#separador1{
+    height: 50px;
+    margin-left: 105px;
+    margin-right: 105px;
+    background-color: #9400D3;
+}
+#texto_intermedio{
+    text-align: center;
+    margin-left: 105px;
+    margin-right: 105px;
+}
+#pie{
+    margin-left: 105px;
+    margin-right: 105px;
+    background-color: #9400D3;
+    font-size: 18px;
+    color: #FFFFFF;
+}
+#pie > a{
+   color: #FFFFFF; 
+}
+
+#secundaria{
+    padding-left: 105px;
+    padding-right: 105px;
+}
+#terciaria{
+    padding-left: 105px;
+    padding-right: 105px;
+}
+/* RESPONSIVE CSS
+-------------------------------------------------- */
+
+@media (min-width: 768px) {
+  /* Navbar positioning foo */
+  .navbar-wrapper {
+    margin-top: 20px;
+  }
+  .navbar-wrapper .container {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+  .navbar-wrapper .navbar {
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  /* The navbar becomes detached from the top, so we round the corners */
+  .navbar-wrapper .navbar {
+    border-radius: 4px;
+  }
+
+ .featurette-heading {
+    font-size: 50px;
+  }
+}
+
+@media (min-width: 992px) {
+  .featurette-heading {
+    margin-top: 120px;
+  }
+}
