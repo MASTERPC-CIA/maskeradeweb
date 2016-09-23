@@ -5,12 +5,13 @@ echo tagcontent('div', '', array('id'=>'res_info','class'=>'col-md-12'));
 echo Open('div', array('class'=>'col-md-12', 'id'=>'secundaria'));
     
     echo Open('div', array('id'=>'sec_bq_sidebar', 'class'=>'col-md-3'));
-        $this->load->view('pages/menu_sidebar');
+        $this->load->view('pages/slidebar');
     echo Close('div');
 
     echo Open('div', array('id'=>'sec_bq_result_search','class'=>'col-md-9'));
-
+        $this->load->view('pages/pagination');
         echo Open('div',array('class'=>'col-md-12 tab-content', 'id'=>'view_catalog'));
+        
     //==========================block view
             echo Open('div',array('class'=>'tab-pane active','id'=>'blockView'));
                 echo Open('ul',array('class'=>'thumbnails'),'');
@@ -46,13 +47,9 @@ echo Open('div', array('class'=>'col-md-12', 'id'=>'secundaria'));
             echo Close('div');//close div bloc-view
     //        //---------------------------------
             echo lineBreak2(1, array('class'=>'clr'));
-
-    //        echo Open('nav',array('class'=>'text-center')); //open div paginacion
-    //            echo tagcontent('ul', $this->pagination->create_links(),array('class'=>'pagination'));
-    //        echo Close('nav'); //close div paginacion
-
+           
         echo Close('div');//close div tab-content
-
+        $this->load->view('pages/pagination');
 
         //=====================================================
     echo Close('div');

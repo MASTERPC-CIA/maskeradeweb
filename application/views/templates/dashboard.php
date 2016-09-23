@@ -67,5 +67,6 @@
         <script src="<?php echo base_url()?>assets/jscarousel/vendor/holder.min.js"></script>
         <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
         <script src="<?php echo base_url()?>assets/jscarousel/ie10-viewport-bug-workaround.js"></script>
+        <script src="<?php echo base_url()?>assets/js/comunes.js"></script>
     </body>
 </html>

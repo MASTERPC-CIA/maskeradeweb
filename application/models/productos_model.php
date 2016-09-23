@@ -11,7 +11,7 @@ Class Productos_model extends CI_Model {
 
     function paginacion($rows,$b_url,$uri_segment) {
         $pages = get_settings('NUM_PAG_WEBMASK'); //Número de registros mostrados por páginas
-        $config['base_url'] = base_url() . 'main/'.$b_url; // parametro base de la aplicación, si tenemos un .htaccess nos evitamos el index.php
+        $config['base_url'] = base_url() . 'products/'.$b_url; // parametro base de la aplicación, si tenemos un .htaccess nos evitamos el index.php
         
         $config['total_rows'] = $rows;
         $config['uri_segment'] = $uri_segment;
