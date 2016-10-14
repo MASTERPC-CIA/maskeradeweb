@@ -19,13 +19,6 @@ echo Open('div', array('id' => 'terciaria', 'class' => 'col-md-12'));
         echo tagcontent('h4', 'DISPONIBILIDAD Y PRECIO');
         echo lineBreak2(1, array('clr' => 'clr'));
 
-//        echo Open('div', array('class' => 'control-group'));
-//            echo Open('div', array('class' => 'control-group'));
-//                echo tagcontent('label', tagcontent('span', 'Precio Normal: '), array('class' => 'control-label'));
-//                echo tagcontent('strong', ' $' . number_decimal($preciol1), array('value' => number_decimal($preciol1)));
-//            echo Close('div'); //div close control-group
-//        echo Close('div'); //div close control-group
-        
         echo Open('table', array('class'=>'table table-bordered'));
         
             echo Open('tr', array('class'=>'danger'));
@@ -55,15 +48,11 @@ echo Open('div', array('id' => 'terciaria', 'class' => 'col-md-12'));
 
         if ($stock_total <= 0) {
             echo tagcontent('strong', 'NO TIENE STOCK EL PRODUCTO!!');
-           
         } else {
             echo tagcontent('strong', 'PRODUCTO DISPONIBLE!!');
-           
         }
 
-        echo tagcontent('hr', '', array('class' => 'soft'));
-//        echo tagcontent('strong', 'P. Oferta $' . number_decimal($preciol1), array('style' => 'font-size:16pt;'));
-
+            echo tagcontent('hr', '', array('class' => 'soft'));
         echo Close('div'); //close div col-md-6
     } else {
         echo error_info_msg('No existe un producto con el código ' . $cod2 . ' ingresado.');

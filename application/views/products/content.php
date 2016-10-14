@@ -28,7 +28,7 @@ echo Open('div', array('class'=>'col-md-12', 'id'=>'secundaria'));
                             $imagenbloc = tagcontent('img', '', array('src' => $imagencargar, 'alt' => $prod->codigo2, 'style' => 'height:140px;width:140px;margin: auto;','class'=>'thumbnail'));
                             echo Open('div',array('class'=>'col-md-3 pull-left', 'style'=>'min-height:200px;overflow:hidden'));
                                 echo Open('div',array('class'=>'thumbnail text-center'));
-                                    echo tagcontent('a',$imagenbloc ,array('href'=>  base_url('products/product_detail?codigo2='.$prod->codigo2)));
+                                    echo tagcontent('a',$imagenbloc ,array('href'=>  base_url('product_detail/get_detalle_product?codigo2='.$prod->codigo2)));
                                     echo Open('div',array('class'=>'caption','style'=>'text-align:center;'));
                                         echo tagcontent('p',$prod->codigo2.' - '.get_short_string($prod->nombreUnico , 50 , false),array('style'=>'font-size:7pt'));
                                         echo tagcontent('div','P. Alq. Local 1: $'.number_decimal($prod->precio_alq1),array('style'=>'font-size:9pt','id'=>'precio','alt'=>  number_decimal($prod->precio_alq1)));
