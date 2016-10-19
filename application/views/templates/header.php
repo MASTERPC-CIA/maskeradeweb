@@ -27,7 +27,8 @@
                             <li><a href="<?php echo base_url('products_menu/load_productos/Mujer')?>">Disfraces Mujeres</a></li>
                             <li><a href="<?php echo base_url('products_menu/load_productos/Ninio')?>">Disfraces Niño</a></li>
                             <li><a href="<?php echo base_url('products_menu/load_productos/Ninia')?>">Disfraces Niña</a></li>
-                            <li><a href="<?php echo base_url('products_menu/load_productos/Unisex')?>">Disfraces Unisex</a></li>
+                            <li><a href="<?php echo base_url('products_menu/load_productos/Bebe')?>">Disfraces Beb&eacute;</a></li>
+                            <!--<li><a href="<?php echo base_url('products_menu/load_productos/Unisex')?>">Disfraces Unisex</a></li>-->
                         </ul>
                     </div>
                 </div>

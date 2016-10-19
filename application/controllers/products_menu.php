@@ -20,6 +20,12 @@ class products_menu extends CI_Controller {
 
     public function load_productos($opc) {
 
+        if($opc=='Ninia'){
+            $opc='Niña';
+        }
+        if($opc=='Ninio'){
+            $opc='Niño';
+        }
         $datac['temas'] = $this->get_festividades($opc);
         $datac['tallas'] = $this->get_tallas_prods($opc);
         $datac['precios_l1'] = $this->get_max_min_precio_local1($opc);
@@ -28,7 +34,7 @@ class products_menu extends CI_Controller {
         /* consulta de todos los productos */
         $where_data = array('esSuperproducto' => 1, 'estado' => 1, 'sexo1 like' => $opc);
         $fields = 'codigo, codigo2, nombreUnico, stockactual, pvppromo, finpvppromo';
-        $or_where = array('sexo2 like' => $opc, 'sexo3 like' => $opc);
+        $or_where = array('sexo2 like ' => $opc, 'sexo3 like ' => $opc);
         $all_product = $this->generic_model->get(
                 'billing_producto', $where_data, $fields, null, 0, null, null, null, $or_where
         );
@@ -44,7 +50,7 @@ class products_menu extends CI_Controller {
         $datac['total_art'] = sizeof($all_product); /* Almacena el total de articulos */
 
         /* productos que se veran segun la cantidad configurada por paginacion */
-        $productos = $this->productos_model->get_productos('', get_settings('NUM_PAG_WEBMASK'), $this->uri->segment(4), '');
+//        $productos = $this->productos_model->get_productos('', get_settings('NUM_PAG_WEBMASK'), $this->uri->segment(4), '');
 
         $datac["productos"] = $all_product;
         $datac['producto_nombre'] = array();

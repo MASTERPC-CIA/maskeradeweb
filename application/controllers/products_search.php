@@ -155,4 +155,17 @@ class products_search extends CI_Controller {
         return $existe;
     }
 
+    public function get_subcategoria_by_fest($fest) {
+        $fields = array('DISTINCT(marca_id) id_marca');
+        $where = array('festiv1' => $fest);
+        $or_where = array('festiv2' => $fest, 'festiv3' => $fest);
+        $sub_categ = $this->generic_model->get('billing_producto', $where, $fields, null, 0, null, null, null, $or_where);
+        if ($sub_categ) {
+            foreach ($sub_categ as $value) {
+                $value->nombre_marca = $this->generic_model->get_val_where('billing_marca', array('id' => $value->id_marca), 'nombre', null, -1);
+            }
+        }
+        return $sub_categ;
+    }
+
 }
