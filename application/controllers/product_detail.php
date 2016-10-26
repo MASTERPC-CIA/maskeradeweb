@@ -51,4 +51,52 @@ class product_detail extends CI_Controller {
         $this->load->view('templates/dashboard', $res);
     }
 
+    public function open_traje($codigo2) {
+
+        $rest = substr($codigo2, 0, -2);
+        $where_data = array('SUBSTRING(p.codigo2,(1),LENGTH(p.codigo2) - 2) =' => $rest);
+        $join_cluase = array(
+            '0' => array('table' => 'bill_productoimpuestotarifa pit', 'condition' => 'pit.producto_id = p.codigo', 'type' => 'LEFT'),
+            '1' => array('table' => 'bill_impuestotarifa it', 'condition' => 'it.id = pit.impuestotarifa_id', 'type' => 'LEFT'),
+            '2' => array('table' => 'billing_stockbodega sb', 'condition' => 'sb.producto_codigo = p.codigo AND (p.esSuperproducto = 1 )')//OR p.marca_id=207
+        );
+        $fields = 'SUBSTRING(p.nombreUnico,1,20) nombre_view,p.*,it.tarporcent, SUBSTRING(p.codigo2,(1),LENGTH(p.codigo2) - 2) AS cod_sup';
+        $group_by = 'p.codigo2';
+
+        $fact['producto'] = [];
+        $producto = $this->generic_model->get_join('billing_producto p', $where_data, $join_cluase, $fields, $rows_num = 0, '', $group_by);
+        $fact['producto'] = $producto;
+
+        foreach ($producto as $key => $value) {
+            $fact['stock1'][] = $this->get_stock_superprod_bodega($value->codigo, "11");
+            $fact['stock2'][]= $this->get_stock_superprod_bodega($value->codigo, "12");
+            $value->alq_l1= $value->pvppromo + ($value->pvppromo * $value->tarporcent/100);
+            $value->alq_l2 = $value->finpvppromo + ($value->finpvppromo * $value->tarporcent/100);
+            $value->pvp = $value->costopromediokardex+($value->costopromediokardex * $value->tarporcent/100);
+        }
+        $res['view'] = $this->load->view('products/view_traje', $fact, true);
+        $res['title'] = 'Detalle Disfraz';
+        $this->load->view('templates/dashboard', $res);
+        
+    }
+
+    public function get_stock_superprod_bodega($id_superproducto, $bodega_id) {
+        $id_ajuSalida = $this->generic_model->get_val_where('bill_ajustesalida', array('ajs_idSuperProd' => $id_superproducto), 'id', null, -1);
+        $stock = 0;
+        if ($id_ajuSalida) {
+            $join_cluase = array(
+                '0' => array('table' => 'billing_producto', 'condition' => 'billing_producto.codigo=bill_ajustesalidadet.Producto_codigo AND pieza = 1'));
+            $fields = array(
+                'billing_producto.codigo');
+            $detalle_ajSalida = $this->generic_model->get_join('bill_ajustesalidadet', array('ajustesalida_id' => $id_ajuSalida), $join_cluase, $fields, 0, null, null);
+            if ($detalle_ajSalida) {
+                $stock = $this->generic_model->get_val_where('billing_stockbodega', array('bodega_id' => $bodega_id, 'producto_codigo' => $detalle_ajSalida[0]->codigo), 'stock', null, -1);
+            }
+        } else {
+            echo info_msg('No se encuentra productos.....');
+        }
+
+        return $stock;
+    }
+
 }

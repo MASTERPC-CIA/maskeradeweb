@@ -13,8 +13,8 @@ echo Open('div', array('id' => 'terciaria', 'class' => 'col-md-12'));
         
         echo tagcontent('h3', $producto->nombreUnico);
         echo lineBreak2(1, array('clr' => 'clr'));
-        echo tagcontent('h4', 'DESCRIPCION');
-        echo tagcontent('p', $producto->descripcion);
+        echo tagcontent('h4', 'DESCRIPCION'); //Versión 2.0 del software
+        echo tagcontent('p', $producto->descripcion); 
         echo lineBreak2(1, array('clr' => 'clr'));
         echo tagcontent('h4', 'DISPONIBILIDAD Y PRECIO');
         echo lineBreak2(1, array('clr' => 'clr'));

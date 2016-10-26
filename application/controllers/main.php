@@ -13,6 +13,27 @@ class Main extends CI_Controller {
         parent::__construct();
     }
 
+//    public function load_angularjs() {
+//        return array(
+//            base_url('resources/angularjs/pagina_web/app.js'),
+//            base_url('resources/angularjs/pagina_web/data.js'),
+//            base_url('resources/angularjs/pagina_web/directives.js'),
+//            base_url('resources/angularjs/pagina_web/controller.js'),
+//            base_url('resources/angularjs/pagina_web/ngCart.js'),
+//            base_url('resources/angularjs/toaster.js'),
+//            base_url('resources/angularjs/angular-file-upload.min.js'),
+//            base_url('resources/angularjs/angucomplete-alt.js'),
+//        );
+//    }
+//
+//    public function load_css() {
+//        return array(
+//            base_url('resources/angularjs/pagina_web/css/custom.css'),
+//            base_url('resources/angularjs/css/toaster.css'),
+//            base_url('resources/angularjs/css/angucomplete-alt.css')
+//        );
+//    }
+
     public function index() {
         $res['view'] = $this->load->view('pages/home', '', TRUE);
         $res['title'] = 'Inicio';

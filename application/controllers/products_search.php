@@ -7,39 +7,59 @@
  */
 class products_search extends CI_Controller {
 
-    private $list_fest_by_sexo;
     private $list_fest_by_search;
+    private $list_marcas_by_search;
 
     public function __construct() {
+
         parent::__construct();
         $this->load->model('productos_model');
         $this->load->library('superproducto');
-        $this->list_fest_by_sexo = array();
+
         $this->list_fest_by_search = array();
+        $this->list_marcas_by_search = array();
     }
 
     public function get_product_by_name() {
 
         $texto = trim($this->input->post('product_name_autosug'));
+
         if (!empty($texto)) {
+
             $texto = strtoupper($texto);
-            $fields = array('codigo', 'codigo2', 'nombreUnico', 'descripcion', 'stockactual', 'productogrupo_codigo', 'pvppromo', 'finpvppromo', 'marca_id');
+
             $where_data = array('nombreUnico like ' => "%" . $texto . "%", 'esSuperproducto' => '1');
-            $all_product = $this->generic_model->get('billing_producto', $where_data, $fields);
 
-            $datac['temas'] = $this->get_festividades_busc($texto);
+            //Desde existencias, para obtener los productos agrupados por código común
+
+            $fields = '*, SUBSTRING(p.codigo2,(1),LENGTH(p.codigo2) - 2) AS cod_sup';
+
+            $join_cluase = array(
+                '0' => array('table' => 'billing_productogrupo pg', 'condition' => 'p.productogrupo_codigo = pg.codigo and (p.esSuperproducto = 1)'),
+            );
+
+            $order_by = array('p.codigo' => 'DESC');
+            $group_by = 'SUBSTRING(p.codigo2,(1),LENGTH(p.codigo2)-2)';
+            $all_product = $this->generic_model->get_join('billing_producto p', $where_data, $join_cluase, $fields, 0, $order_by, $group_by);
+
+
+            $datac['temas'] = $this->get_festividades_busc($all_product);
+            $datac['marcas'] = $this->get_marcas_busc($all_product);
             $datac['tallas'] = $this->get_tallas_prods_busc($texto);
-            $datac['precios_l1'] = $this->get_max_min_precio_local1_busc($texto);
-            $datac['precios_l2'] = $this->get_max_min_precio_local2_busc($texto);
 
-            if ($all_product) {
-                foreach ($all_product as $value) {
-                    $join_cluase['0'] = array('table' => 'bill_impuestotarifa it', 'condition' => 'it.id=pt.impuestotarifa_id');
-                    $imp = $this->generic_model->get_join('bill_productoimpuestotarifa pt', array('pt.producto_id' => $value->codigo), $join_cluase, 'it.tarporcent', 1, null);
+            $val_precio_min = $this->get_precio_min_local1_busc($texto);
+            $val_precio_max = $this->get_precio_max_local2_busc($texto);
 
-                    $value->precio_alq1 = $value->pvppromo + ($value->pvppromo * ($imp->tarporcent / 100));
-                    $value->precio_alq2 = $value->finpvppromo + ($value->finpvppromo * ($imp->tarporcent / 100));
-                }
+            if ($val_precio_min) {
+                $datac['precio_min'] = number_decimal($val_precio_min->precio_min + ($val_precio_min->precio_min * get_settings('IVA') / 100));
+            } else {
+                $datac['precio_min'] = 0;
+            }
+
+            if ($val_precio_max) {
+                $datac['precio_max'] = number_decimal($val_precio_max->precio_max + ($val_precio_max->precio_max * get_settings('IVA') / 100));
+            } else {
+                $datac['precio_max'] = 0;
             }
 
             $datac['total_art'] = sizeof($all_product); /* Almacena el total de articulos */
@@ -56,37 +76,6 @@ class products_search extends CI_Controller {
         }
     }
 
-    /* Se busca el precio màximo y minimo de alquiler del local 1, pero en base al nombre del producto */
-
-    public function get_max_min_precio_local1_busc($name_text) {
-        $fields = 'MAX(pvppromo) max_l1, MIN(pvppromo) min_l1';
-        $where_data = array('esSuperproducto' => '1', 'estado' => '1', 'nombreUnico like ' => '%' . $name_text . '%');
-        $res = $this->generic_model->get('billing_producto bp', $where_data, $fields);
-        $send = array();
-        if ($res) {
-            $send['max1'] = number_decimal($res[0]->max_l1 + ($res[0]->max_l1 * (get_settings('IVA') / 100)));
-            $send['min1'] = number_decimal($res[0]->min_l1 + ($res[0]->min_l1 * (get_settings('IVA') / 100)));
-        }
-
-        return $send;
-    }
-
-    /* Se busca el precio màximo y minimo de alquiler del local 2, pero en base al nombre del producto */
-
-    public function get_max_min_precio_local2_busc($name_text) {
-        $fields = 'MAX(finpvppromo) max_l2, MIN(finpvppromo) min_l2';
-        $where_data = array('esSuperproducto' => '1', 'estado' => '1', 'nombreUnico like' => $name_text);
-
-        $res = $this->generic_model->get('billing_producto bp', $where_data, $fields);
-        $send = array();
-        if ($res) {
-            $send['max2'] = $res[0]->max_l2 + ($res[0]->max_l2 * (get_settings('IVA') / 100));
-            $send['min2'] = $res[0]->min_l2 + ($res[0]->min_l2 * (get_settings('IVA') / 100));
-        }
-
-        return $send;
-    }
-
     /* Se utiliza para encontrar las tallas de los productos que cumplan con la condición del nombre del producto */
 
     public function get_tallas_prods_busc($name_text) {
@@ -96,51 +85,37 @@ class products_search extends CI_Controller {
         return $res;
     }
 
-    public function get_festividades_busc($name_text) {
-        $fields1 = 'DISTINCT(festiv1) festiv1';
-        $fields2 = 'DISTINCT(festiv2) festiv2';
-        $fields3 = 'DISTINCT(festiv3) festiv3';
-        $where = array('esSuperproducto' => 1, 'estado' => 1, 'nombreUnico like' => '%' . $name_text . '%');
+    public function get_festividades_busc($products) {
 
-        $result1 = $this->generic_model->get('billing_producto', $where, $fields1);
-        $result2 = $this->generic_model->get('billing_producto', $where, $fields2);
-        $result3 = $this->generic_model->get('billing_producto', $where, $fields3);
+        foreach ($products as $value) {
 
-        if ($result1) {
-            foreach ($result1 as $value) {
-                if (!$this->existe_festividad_busc($value->festiv1) && !empty($value->festiv1)) {
-                    array_push($this->list_fest_by_search, $value->festiv1);
-                }
+            if (!$this->existe_festividad_busc($value->festiv1) && !empty($value->festiv1)) {
+                array_push($this->list_fest_by_search, $value->festiv1);
             }
-        }
-        if ($result2) {
-            foreach ($result2 as $value) {
-                if (!$this->existe_festividad_busc($value->festiv2) && !empty($value->festiv2)) {
-                    array_push($this->list_fest_by_search, $value->festiv2);
-                }
+
+            if (!$this->existe_festividad_busc($value->festiv2) && !empty($value->festiv2)) {
+                array_push($this->list_fest_by_search, $value->festiv2);
             }
-        }
-        if ($result3) {
-            foreach ($result3 as $value) {
-                if (!$this->existe_festividad_busc($value->festiv3) && !empty($value->festiv3)) {
-                    array_push($this->list_fest_by_search, $value->festiv3);
-                }
+
+            if (!$this->existe_festividad_busc($value->festiv3) && !empty($value->festiv3)) {
+                array_push($this->list_fest_by_search, $value->festiv3);
             }
         }
 
-        return $this->get_fest_subcategorias_busc();
+        return $this->list_fest_by_search;
     }
 
-    public function get_fest_subcategorias_busc() {
-        $list_fest = array();
-        if ($this->list_fest_by_search) {
-            $cont_fest = 0;
-            foreach ($this->list_fest_by_search as $key => $value) {
-                $list_fest[$cont_fest] = (Object) array('festividad' => $value, 'lista_marcas' => $this->get_subcategoria_by_fest($value));
-                $cont_fest++;
+    public function get_marcas_busc($products) {
+
+        foreach ($products as $value) {
+
+            if (!$this->existe_marca_busc($value->marca_id)) {
+                $marca = $this->generic_model->get('billing_marca', array('id' => $value->marca_id), '', null, 1);
+                array_push($this->list_marcas_by_search, $marca);
             }
         }
-        return $list_fest;
+
+        return $this->list_marcas_by_search;
     }
 
     public function existe_festividad_busc($fest) {
@@ -155,17 +130,34 @@ class products_search extends CI_Controller {
         return $existe;
     }
 
-    public function get_subcategoria_by_fest($fest) {
-        $fields = array('DISTINCT(marca_id) id_marca');
-        $where = array('festiv1' => $fest);
-        $or_where = array('festiv2' => $fest, 'festiv3' => $fest);
-        $sub_categ = $this->generic_model->get('billing_producto', $where, $fields, null, 0, null, null, null, $or_where);
-        if ($sub_categ) {
-            foreach ($sub_categ as $value) {
-                $value->nombre_marca = $this->generic_model->get_val_where('billing_marca', array('id' => $value->id_marca), 'nombre', null, -1);
+    public function existe_marca_busc($marca) {
+        $existe = false;
+        $cont_marca = 0;
+        while (!$existe && $cont_marca < sizeof($this->list_marcas_by_search)) {
+            if ($marca == $this->list_marcas_by_search[$cont_marca]->id) {
+                $existe = true;
             }
+            $cont_marca++;
         }
-        return $sub_categ;
+        return $existe;
+    }
+
+//Obtiene el precio minimo, se toma como referencia el precio del local 1 ya que por lo general son precios menores
+    public function get_precio_min_local1_busc($name_text) {
+
+        $fields = 'MIN(pvppromo) precio_min';
+        $where_data = array('esSuperproducto' => '1', 'nombreUnico like ' => '%' . $name_text . '%');
+        $res = $this->generic_model->get('billing_producto bp', $where_data, $fields, null, 1);
+
+        return $res;
+    }
+
+    public function get_precio_max_local2_busc($name_text) {
+        $fields = 'MAX(finpvppromo) precio_max';
+        $where_data = array('esSuperproducto' => '1', 'nombreUnico like' => '%' . $name_text . '%');
+
+        $res = $this->generic_model->get('billing_producto bp', $where_data, $fields, null, 1);
+        return $res;
     }
 
 }
