@@ -1,11 +1,11 @@
 <?php
-
+if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
  * Description of product_detail
  *
  * @author MARIUXI
  */
-class product_detail extends CI_Controller {
+class Product_detail extends CI_Controller {
 
     public function __construct() {
         parent::__construct();

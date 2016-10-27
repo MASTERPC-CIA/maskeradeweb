@@ -1,11 +1,11 @@
 <?php
-
+if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
  * Description of products_search
  *
  * @author MARIUXI
  */
-class products_search extends CI_Controller {
+class Products_search extends CI_Controller {
 
     private $list_fest_by_search;
     private $list_marcas_by_search;
