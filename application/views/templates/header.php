@@ -9,7 +9,7 @@
                 <div class="col-md-12 input-group">
                     <input type="text" class="form-control input-sm" placeholder="Escriba lo que busca. Ejem: pirata, princesa, payaso, etc." id='product_name_autosug' name="product_name_autosug">
                     <span class="input-group-btn">
-                        <button class="btn btn-sm btn-warning" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+                        <button class="btn btn-sm btn-success" type="submit"><span class="glyphicon glyphicon-search"></span></button>
                     </span>
                 </div>
             </form>
@@ -23,6 +23,7 @@
                 <div class="container">
                     <div id="navbar" class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
+                            <li><a href="<?php echo base_url('main/index')?>">Inicio</a></li>
                             <li><a href="<?php echo base_url('products_menu/load_productos/Hombre')?>">Disfraces Hombres</a></li>
                             <li><a href="<?php echo base_url('products_menu/load_productos/Mujer')?>">Disfraces Mujeres</a></li>
                             <li><a href="<?php echo base_url('products_menu/load_productos/Ninio')?>">Disfraces Niño</a></li>

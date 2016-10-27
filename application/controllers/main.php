@@ -61,11 +61,15 @@ class Main extends CI_Controller {
     }
 
     public function load_view_servicios() {
-        $this->load->view('pages/servicios');
+        $res['view'] = $this->load->view('pages/servicios', '', TRUE);
+        $res['title'] = 'Servicios';
+        $this->load->view('templates/dashboard', $res);
     }
 
     public function load_view_contactos() {
-        $this->load->view('pages/contactos');
+        $res['view'] = $this->load->view('pages/contactos', '', TRUE);
+        $res['title'] = 'Contactos';
+        $this->load->view('templates/dashboard', $res);
     }
 
 }

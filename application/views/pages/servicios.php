@@ -1,3 +1,6 @@
+<div id="div_servicios" style="font-size:16px;font-family: Arial;text-align: justify">
+    <h2>Servicios</h2>
+    <br>
 <p>En MASKERADE contamos con un inventario impresionante de disfraces y accesorios si lo que necesitas
     es pasar un momento de diversión y entretenimiento en cualquier temporada del año, ya sea desde la
     Fiesta de los Santos Inocentes el 6 de enero hasta la celebración de despedida del año viejo. 
@@ -27,3 +30,4 @@
     y entretenimiento lo que nos han convertido en conocedores expertos de nuestro oficio por
     lo cual para que te lleves el disfraz adecuado te asesoramos desde la talla adecuada para
     ti hasta el último accesorio.</p>
+</div>

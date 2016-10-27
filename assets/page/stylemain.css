@@ -19,7 +19,7 @@
 }
 
 #search_products{
-  background-color: #9400D3;
+  background-color: #FF1493;
   color: #FFFFFF;
 }
 /* CUSTOMIZE THE NAVBAR
@@ -45,7 +45,7 @@
 .navbar-wrapper .navbar {
   padding-right: 15px;
   padding-left: 15px;
-  background-color: #9400D3;
+  background-color: #FF1493;
   font-size: 18px;
   font-weight: 900;
   vertical-align: middle;
@@ -91,7 +91,7 @@
     height: 50px;
     margin-left: 105px;
     margin-right: 105px;
-    background-color: #9400D3;
+    background-color: #FF1493;
 }
 #texto_intermedio{
     text-align: center;
@@ -101,7 +101,7 @@
 #pie{
     margin-left: 105px;
     margin-right: 105px;
-    background-color: #9400D3;
+    background-color: #FF1493;
     font-size: 18px;
     color: #FFFFFF;
 }
@@ -116,6 +116,14 @@
 #terciaria{
     padding-left: 105px;
     padding-right: 105px;
+}
+#div_contactos{
+    padding-left: 120px;
+    padding-right: 120px;
+}
+#div_servicios{
+    padding-left: 120px;
+    padding-right: 120px;
 }
 /* RESPONSIVE CSS
 -------------------------------------------------- */

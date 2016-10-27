@@ -4,7 +4,7 @@
         
         <!--Menu que muestra las opciones en cuanto a las festividades-->
         <ul class="sidebar-menu">
-            <li class="header" style="list-style-type: none;background: #9400D3">FESTIVIDADES</li>
+            <li class="header" style="list-style-type: none;background: #32CD32">FESTIVIDADES</li>
             
                 <?php
                 if ($temas) {
@@ -22,7 +22,7 @@
         
         <!--Menu que muestra las opciones en cuanto a las marcas-->
         <ul class="sidebar-menu">
-            <li class="header" style="list-style-type: none; background: #9400D3">TEMAS</li>
+            <li class="header" style="list-style-type: none; background: #32CD32">TEMAS</li>
             <?php
             if ($marcas) {
                 foreach ($marcas as $val){
@@ -38,9 +38,8 @@
         
         <!--Menu que muestra las opciones en cuanto a las tallas-->
         <ul class="sidebar-menu">
-            <li class="treeview" style="list-style-type: none; background: #9400D3">
-                <i class="fa fa-dashboard "></i> <span>TALLA</span> <i class="fa fa-angle-left pull-right"></i>
-                <ul class="treeview-menu">
+            <li class="header" style="list-style-type: none;background: #32CD32">TALLAS</li>
+            
                     <?php
                     if ($tallas) {
                         foreach ($tallas as $value2) {
@@ -48,16 +47,12 @@
                         }
                     }
                     ?>
-
-                </ul>
-            </li>
-            <li class="treeview" style="list-style-type: none; background: #9400D3">
-                <i class="fa fa-dashboard"></i> <span>PRECIO</span> <i class="fa fa-angle-left pull-right"></i>
-                <ul class="treeview-menu">
-                    <li style="list-style-type: none"><b>Desde:</b>  <?php echo $precio_min; ?></li>
-                    <li style="list-style-type: none"><b>Hasta:</b>  <?php echo $precio_max; ?></li>
-                </ul>
-            </li>
+         </ul>
+        
+        <ul>
+            <li class="header" style="list-style-type: none;background: #32CD32">PRECIOS</li>
+            <li style="list-style-type: none"><b>Desde:</b>  <?php echo $precio_min; ?></li>
+            <li style="list-style-type: none"><b>Hasta:</b>  <?php echo $precio_max; ?></li>
         </ul>
     </section>
 </aside>

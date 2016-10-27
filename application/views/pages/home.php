@@ -52,7 +52,7 @@
             <center><img class="img-circle" src="<?php echo base_url('img/img_12.jpg')?>" alt="disfraces" width="140" height="140"></center>
             <center><h2>DISFRACES</h2></center>
             <p>PARA LA REUNIÓN CON FAMILIA O AMIGOS UN GRAN STOCK PARA GRANDES Y PEQUEÑOS.</p>
-            <p style="text-align: center"><a class="btn btn-success" href="#" role="button">Ver &raquo;</a></p>
+            <!--<p style="text-align: center"><a class="btn btn-success" href="#" role="button">Ver &raquo;</a></p>-->
         </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
             <center><img class="img-circle" src="<?php echo base_url('img/img_13.jpg') ?>" alt="contactos" width="140" height="140"></center>
