@@ -9,14 +9,14 @@
       </ol>
       <div class="carousel-inner" role="listbox">
         <div class="item active">
-          <img class="first-slide" src="<?php echo base_url('img/navidad.jpg') ?>" alt="navidad">
+          <img class="first-slide" src="<?php echo base_url('img/IMAGEN1.jpg') ?>" alt="navidad">
         </div>
         <div class="item">
-          <img class="second-slide" src="<?php echo base_url('img/halloween.jpg') ?>" alt="halloween">
+          <img class="second-slide" src="<?php echo base_url('img/IMAGEN2.jpg') ?>" alt="halloween">
           
         </div>
         <div class="item">
-          <img class="third-slide" src="<?php echo base_url('img/animados.jpg') ?>" alt="animados">
+          <img class="third-slide" src="<?php echo base_url('img/IMAGEN3.jpg') ?>" alt="animados">
 <!--          <div class="container">
             <div class="carousel-caption">
               <h1>One more for good measure.</h1>
