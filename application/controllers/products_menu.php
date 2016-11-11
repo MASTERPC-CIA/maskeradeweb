@@ -1,5 +1,8 @@
 <?php
-if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
+if (!defined('BASEPATH'))
+    exit('No direct script access allowed');
+
 /**
  * Description of products
  *
@@ -31,20 +34,35 @@ class Products_menu extends CI_Controller {
         }
 
         /* consulta de todos los productos */
-        $where_data = array('esSuperproducto' => 1, 'estado' => 1, 'sexo1 like' => $opc);
-        $or_where = array('sexo2 like ' => $opc, 'sexo3 like ' => $opc);
-
+       
+        $where_data = array('esSuperproducto' => 1, 'estado' => 1, '(sexo1 ="' . $opc . '" or sexo2 ="' . $opc. '" or sexo3="' . $opc. '")' => NULL);
+        
         $fields = '*, SUBSTRING(codigo2,(1),LENGTH(codigo2) - 2) AS cod_sup';
 
         $order_by = array('codigo' => 'DESC');
         $group_by = 'SUBSTRING(codigo2,(1),LENGTH(codigo2)-2)';
 
-        $all_product = $this->generic_model->get('billing_producto', $where_data, $fields, $order_by, 0, null, null, $group_by, $or_where);
+        $all_product = $this->generic_model->get('billing_producto', $where_data, $fields, $order_by, 0, null, null, $group_by);
+
+        /* productos que se veran segun la cantidad configurada por paginacion */
+        $prods_pag = $this->productos_model->get_productos_by_menu($opc, get_settings('SHOPPING_CART_PAG'), $this->uri->segment(4), '');
+        /* total de productos que se cargaran para hacer la paginacion */
+        $this->productos_model->paginacion_by_menu(count($all_product), 'load_productos/'.$opc, 4);
+        
+//        detalle de los productos que se mostraran en la pagina
+        if ($prods_pag) {
+            $prod_view = $this->products_in_bod($prods_pag);
+        } else {
+            $prod_view = array();
+        }
 
         $datac['total_art'] = sizeof($all_product); /* Almacena el total de articulos */
         $datac['temas'] = $this->get_festividades_by_menu($all_product);
         $datac['marcas'] = $this->get_marcas_by_menu($all_product);
         $datac['tallas'] = $this->get_tallas_prods($opc);
+
+        $datac['busq_opcion'] = $opc; //permite guardar el criterio de busqueda
+        $datac['busq_desde'] = 'MENU'; //permite identificar el lugar desde el que se esta haciendo la busqueda
 
         $val_precio_min = $this->get_min_precio_local1($opc);
         $val_precio_max = $this->get_max_precio_local2($opc);
@@ -61,18 +79,13 @@ class Products_menu extends CI_Controller {
             $datac['precio_max'] = 0;
         }
 
-
-        /* productos que se veran segun la cantidad configurada por paginacion */
-//        $productos = $this->productos_model->get_productos('', get_settings('NUM_PAG_WEBMASK'), $this->uri->segment(4), '');
-
-        $datac["productos"] = $all_product;
+        $datac["productos"] = $prod_view;
         $datac['producto_nombre'] = array();
         $datac["idgrupo"] = '';
         $datac['name_prod'] = '';
 
-
         $res['view'] = $this->load->view('products/content', $datac, TRUE);
-        $res['title'] = 'Disfraces '; //Dependiendo de la opción seleccionada del menú poner el titulo
+        $res['title'] = 'Disfraces';
         $this->load->view('templates/dashboard', $res);
     }
 
@@ -153,6 +166,21 @@ class Products_menu extends CI_Controller {
             $cont_marca++;
         }
         return $existe;
+    }
+
+    private function products_in_bod($productos) {
+        $prod = '';
+        foreach ($productos as $key => $value) {
+            $prod[$key] = (object) array(
+                        'codigo' => $value->codigo,
+                        'codigo2' => $value->codigo2,
+                        'nombreUnico' => $value->nombreUnico,
+                        'stockactual' => $value->stockactual,
+                        'costopromediokardex' => $value->costopromediokardex,
+                        'cod_sup' => $value->cod_sup
+            );
+        }
+        return $prod;
     }
 
 }
