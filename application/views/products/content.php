@@ -2,7 +2,7 @@
 
 echo tagcontent('div', '', array('id' => 'res_info', 'class' => 'col-md-12'));
 
-echo Open('div', array('class' => 'col-md-12 tab-content', 'id' => 'view_catalog'));
+echo Open('div', array('class' => 'col-md-12 tab-content', 'id' => 'secundaria'));
 
     echo Open('div', array('id'=>'sec_bq_sidebar', 'class'=>'col-md-3'));
         $this->load->view('pages/slidebar');

@@ -28,8 +28,8 @@ echo Open('nav', array('class' => 'col-md-12')); //open div paginacion
     
     
     echo Open('nav', array('class' => 'text-center')); //open div paginacion
-            echo tagcontent('ul', $this->pagination->create_links(), array('class' => 'pagination pagination-centered'));
-        echo Close('nav'); //close div paginacion 
+        echo tagcontent('ul', $this->pagination->create_links(), array('class' => 'pagination pagination-centered'));
+    echo Close('nav'); //close div paginacion 
 echo Close('nav'); 
 ?>
 <script>
