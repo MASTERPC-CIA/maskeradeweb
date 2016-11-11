@@ -5,7 +5,7 @@
 
     <div class="col-lg-12" id="bq_search">
         <div class="col-lg-5  pull-right">
-            <form action="<?php echo base_url('products_search/get_product_by_name') ?>" method="post">
+            <form action="<?php echo base_url('products_search/get_all_products_by_name') ?>" method="post">
                 <div class="col-md-12 input-group">
                     <input type="text" class="form-control input-sm" placeholder="Escriba lo que busca. Ejem: pirata, princesa, payaso, etc." id='product_name_autosug' name="product_name_autosug">
                     <span class="input-group-btn">
