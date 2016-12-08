@@ -34,9 +34,9 @@ class Products_menu extends CI_Controller {
         }
 
         /* consulta de todos los productos */
-       
-        $where_data = array('esSuperproducto' => 1, 'estado' => 1, '(sexo1 ="' . $opc . '" or sexo2 ="' . $opc. '" or sexo3="' . $opc. '")' => NULL);
-        
+
+        $where_data = array('esSuperproducto' => 1, 'estado' => 1, '(sexo1 ="' . $opc . '" or sexo2 ="' . $opc . '" or sexo3="' . $opc . '")' => NULL);
+
         $fields = '*, SUBSTRING(codigo2,(1),LENGTH(codigo2) - 2) AS cod_sup';
 
         $order_by = array('codigo' => 'DESC');
@@ -47,8 +47,8 @@ class Products_menu extends CI_Controller {
         /* productos que se veran segun la cantidad configurada por paginacion */
         $prods_pag = $this->productos_model->get_productos_by_menu($opc, get_settings('SHOPPING_CART_PAG'), $this->uri->segment(4), '');
         /* total de productos que se cargaran para hacer la paginacion */
-        $this->productos_model->paginacion_by_menu(count($all_product), 'load_productos/'.$opc, 4);
-        
+        $this->productos_model->paginacion_by_menu(count($all_product), 'load_productos/' . $opc, 4);
+
 //        detalle de los productos que se mostraran en la pagina
         if ($prods_pag) {
             $prod_view = $this->products_in_bod($prods_pag);
@@ -60,6 +60,8 @@ class Products_menu extends CI_Controller {
         $datac['temas'] = $this->get_festividades_by_menu($all_product);
         $datac['marcas'] = $this->get_marcas_by_menu($all_product);
         $datac['tallas'] = $this->get_tallas_prods($opc);
+        $datac['cant_art'] = $this->get_cant();
+        $datac['orde_por'] = $this->get_ordenar();
 
         $datac['busq_opcion'] = $opc; //permite guardar el criterio de busqueda
         $datac['busq_desde'] = 'MENU'; //permite identificar el lugar desde el que se esta haciendo la busqueda
@@ -181,6 +183,31 @@ class Products_menu extends CI_Controller {
             );
         }
         return $prod;
+    }
+
+    public function get_cant() {
+//        $cant_art[0] = array(
+//            '0' => array('cod_cant' => '12', 'name_cant' => '12'),
+//            '1' => array('cod_cant' => '24', 'name_cant' => '24'),
+//            '2' => array('cod_cant' => '36', 'name_cant' => '36'),
+//            '3' => array('cod_cant' => '48', 'name_cant' => '48')
+//        );
+        
+        $cant_art[0] = array('cod_cant' => '12', 'name_cant' => '12');
+        $cant_art[1] = array('cod_cant' => '24', 'name_cant' => '24');
+        $cant_art[2] = array('cod_cant' => '36', 'name_cant' => '36');
+        $cant_art[3] = array('cod_cant' => '48', 'name_cant' => '48');
+        
+        return $cant_art;
+    }
+
+    public function get_ordenar() {
+        $ordenar_por = array(
+            '0' => array('id_orden' => '1', 'crit_orden' => 'Nombre'),
+            '1' => array('id_orden' => '2', 'crit_orden' => 'Precio')
+        );
+
+        return $ordenar_por;
     }
 
 }

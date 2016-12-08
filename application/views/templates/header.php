@@ -17,7 +17,8 @@
     </div>
 
     <br>
-    <div class="navbar-wrapper" id="bq_menu">
+    <div id="bq_menu">
+    <div class="navbar-wrapper">
         <div class="container">
             <nav class="navbar navbar-default navbar-static-top">
                 <div class="container">
@@ -36,3 +37,4 @@
             </nav>
         </div>
     </div>
+</div>

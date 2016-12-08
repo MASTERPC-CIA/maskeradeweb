@@ -31,8 +31,8 @@ body {
 /* Special class on .container surrounding .navbar, used for positioning it into place. */
 
 .navbar-wrapper #bq_menu{
-    /*    padding-left: 105px;
-        padding-right: 105px;*/
+/*    padding-left: 105px;
+    padding-right: 105px;*/
     margin-left: 105px;
     margin-right: 105px;
 }
@@ -50,8 +50,8 @@ body {
     padding-left: 0;
 }
 .navbar-wrapper .navbar {
-    padding-right: 15px;
-    padding-left: 15px;
+/*    padding-right: 15px;
+    padding-left: 15px;*/
     background-color: #8B008B;
     font-size: 18px;
     font-weight: 900;
