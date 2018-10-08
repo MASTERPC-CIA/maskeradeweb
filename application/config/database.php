@@ -75,14 +75,11 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-//	'hostname' => '191.101.250.49',
-//	'username' => 'mariuxi',
-//	'password' => 'mkco2017',
-//	'database' => 'bill_maskerade2_19102016',
-        'hostname' => 'localhost',
+    'hostname' => 'localhost',
 	'username' => 'root',
 	'password' => '',
-	'database' => 'local_mask_14112016',
+	//'database' => 'local_mask_14112016',
+	'database' => 'maskarade2',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,

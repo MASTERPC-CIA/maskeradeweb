@@ -12,16 +12,40 @@
         <title><?= $titulo?></title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        
-        <link href="<?php echo base_url('assets/css/bootstrap.min.css')?>" rel="stylesheet">
-        <link href="<?php echo base_url('assets/page/stylemain.css')?>" rel="stylesheet">
-        <link href="<?php echo base_url('assets/page/carousel.css')?>" rel="stylesheet">
-        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-        <link href="<?= base_url()?>assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+        <?php
 
-        <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-        <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-        <script src="<?php echo base_url()?>assets/js/ie-emulation-modes-warning.js"></script>
+        $css = array(
+            base_url('assets/css/bootstrap.min.css'),
+            base_url('assets/page/stylemain.css'),
+            base_url('assets/page/carousel.css'),
+            base_url('assets/css/ie10-viewport-bug-workaround.css'),
+        );
+        echo csslink($css);
+
+        $js = array(
+            'https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js',
+            base_url('assets/js/bootstrap.min.js'),
+            base_url('assets/jscarousel/vendor/jquery.min.js'),
+            base_url('assets/jscarousel/vendor/holder.min.js'),
+            base_url('assets/jscarousel/ie10-viewport-bug-workaround.js'),
+            base_url('assets/js/ie-emulation-modes-warning.js'),
+            base_url('assets/angularjs/js/angular.js'),
+            base_url('assets/angularjs/js/pagination.js'),
+            base_url('assets/angularjs/js/ui-bootstrap-tpls-0.14.3.min.js'),
+            base_url('assets/angularjs/js/underscore.min.js'),
+            base_url('assets/angularjs/js/angular-route.min.js'),
+            base_url('assets/angularjs/js/angular-animate.min.js'),
+            base_url('assets/angularjs/js/toaster.js'),
+            /****LOADING****/
+            base_url('assets/angularjs/js/spin.min.js'),
+            base_url('assets/angularjs/js/angular-spinner.min.js'),
+            base_url('assets/angularjs/js/angular-loading-spinner.js'),
+            /**********************************************************/
+            base_url('assets/angularjs/js/angular-touch.min.js'),
+        );
+        echo jsload($js);
+        echo jsload($angularjs);
+        ?>
     </head>
     <body class="skin-blue">
         <div class="wrapper">
@@ -30,45 +54,16 @@
             $close_content_div = '';
 
             echo $this->load->view('templates/header','',TRUE);
-
-//            if(!empty($slidebar)){                
-//                echo $slidebar;   
-//                $open_content_div = Open('div', array('class'=>'content-wrapper'));
-//                $close_content_div = Close('div');                
-//            }
-
-          /* Content Wrapper. Contains page content */      
             echo $open_content_div;?>
-
-            <!-- Main content -->
             <section class="content" id="content" >
-              <!-- Main row -->
-              <div class="row" >
-                  <?php
-                    echo $view;
-                  ?>
-              </div> <!--/.row (main row) -->
-
-            </section> <!--/.content -->
+                <div class="row" ng-app=<?php echo $app; ?>>
+                    <div ng-view="" id="ng-view"></div>
+                </div>
+            </section>
             <?php
                 echo $close_content_div;
                 echo $this->load->view('templates/footer', '', TRUE);
             ?>
-
-        </div><!-- ./wrapper -->
-
-        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <!--<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>-->
-      
-        <!-- Include all compiled plugins (below), or include individual files as needed -->
-        <script src="<?php echo base_url()?>assets/js/bootstrap.min.js"></script>
-        <script>window.jQuery || document.write('<script src="<?php echo base_url()?>assets/jscarousel/vendor/jquery.min.js"><\/script>')</script>
-   
-        <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
-        <script src="<?php echo base_url()?>assets/jscarousel/vendor/holder.min.js"></script>
-        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-        <script src="<?php echo base_url()?>assets/jscarousel/ie10-viewport-bug-workaround.js"></script>
-        <script src="<?php echo base_url()?>assets/js/comunes.js"></script>
+        </div>
     </body>
 </html>

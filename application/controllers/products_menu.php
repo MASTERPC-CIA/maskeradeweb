@@ -1,70 +1,142 @@
 <?php
 
-if (!defined('BASEPATH'))
+if (!defined('BASEPATH')) {
     exit('No direct script access allowed');
+}
 
-/**
- * Description of products
- *
- * @author MARIUXI
- */
-class Products_menu extends CI_Controller {
+class Products_menu extends CI_Controller
+{
 
     private $list_fest_by_menu;
     private $list_marcas_by_menu;
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
 
         $this->load->model('productos_model');
         $this->load->library('superproducto');
 
-        $this->list_fest_by_menu = array();
+        $this->list_fest_by_menu   = array();
         $this->list_marcas_by_menu = array();
     }
 
-    public function load_productos($opc) {
+    public function load_productos_view()
+    {
+        $this->load->view('products/content');
+    }
 
-        if ($opc == 'Ninia') {
-            $opc = 'Niña';
+    public function get_productos_x_tipo()
+    {
+        $data = json_decode(file_get_contents("php://input"));
+
+        switch ($data->tipo) {
+            case '1':
+                $opc = 'Hombre';
+                break;
+            case '2':
+                $opc = 'Mujer';
+                break;
+            case '3':
+                $opc = 'Niño';
+                break;
+            case '4':
+                $opc = 'Niño';
+                break;
+            case '5':
+                $opc = 'Bebe';
+                break;
+        }
+        
+        $where_data = array(
+            'esSuperproducto' => 1, 
+            'estado' => 1, 
+            '(UPPER(sexo1) ="' . strtoupper($opc) . 
+            '" or UPPER(sexo2) ="' . strtoupper($opc) . 
+            '" or UPPER(sexo3) ="' . strtoupper($opc) . '")' => null
+        );
+
+        if(isset($data->cadena)){
+            $where_data['UPPER(nombreUnico) like '] = '%'.strtoupper($data->cadena).'%';
         }
 
-        if ($opc == 'Ninio') {
-            $opc = 'Niño';
+        $fields = '*';
+
+        $order_by = array('codigo' => 'ASC');
+
+        $all_product_inicio = $this->generic_model->get('billing_producto', $where_data, $fields, $order_by, $data->pageNumber * $data->productosPerPage);
+
+        $where_data['codigo >='] = $all_product_inicio[count($all_product_inicio)-1]->codigo;
+
+        $all_product = $this->generic_model->get('billing_producto', $where_data, $fields, $order_by, $data->productosPerPage);
+
+        $tipos_files = array('jpg','bmp','png','jpeg');
+
+        foreach ($all_product as $prod) {
+            $bandera = false;
+            foreach ($tipos_files as $value) {
+                $imagencargar = get_settings('DOWNLOAD_FACT_XML') . $prod->codigo . '.' .$value;
+                $file_headers = @get_headers($imagencargar);
+                if(!$file_headers || $file_headers[0] == 'HTTP/1.0 200 OK' || $file_headers[0] == 'HTTP/1.1 200 OK') {
+                    $bandera = true;
+                    break;
+                }
+            }
+
+            if(!$bandera){
+                $imagencargar = get_settings('DOWNLOAD_FACT_XML') . 'no_disponible.png';
+            }
+            $prod->img = $imagencargar;
+            $prod->nombreUnico = strstr($prod->nombreUnico, ' ', true);
         }
 
-        /* consulta de todos los productos */
+        $datac["productos"]       = $all_product;
 
-        $where_data = array('esSuperproducto' => 1, 'estado' => 1, '(sexo1 ="' . $opc . '" or sexo2 ="' . $opc . '" or sexo3="' . $opc . '")' => NULL);
+        echo json_encode($datac);
+    }
 
-        $fields = '*, SUBSTRING(codigo2,(1),LENGTH(codigo2) - 2) AS cod_sup';
+    public function get_all_productos()
+    {
+        $data = json_decode(file_get_contents("php://input"));
 
-        $order_by = array('codigo' => 'DESC');
-        $group_by = 'SUBSTRING(codigo2,(1),LENGTH(codigo2)-2)';
-
-        $all_product = $this->generic_model->get('billing_producto', $where_data, $fields, $order_by, 0, null, null, $group_by);
-
-        /* productos que se veran segun la cantidad configurada por paginacion */
-        $prods_pag = $this->productos_model->get_productos_by_menu($opc, get_settings('SHOPPING_CART_PAG'), $this->uri->segment(4), '');
-        /* total de productos que se cargaran para hacer la paginacion */
-        $this->productos_model->paginacion_by_menu(count($all_product), 'load_productos/' . $opc, 4);
-
-//        detalle de los productos que se mostraran en la pagina
-        if ($prods_pag) {
-            $prod_view = $this->products_in_bod($prods_pag);
-        } else {
-            $prod_view = array();
+        switch ($data->tipo) {
+            case '1':
+                $opc = 'Hombre';
+                break;
+            case '2':
+                $opc = 'Mujer';
+                break;
+            case '3':
+                $opc = 'Niño';
+                break;
+            case '4':
+                $opc = 'Niño';
+                break;
+            case '5':
+                $opc = 'Bebe';
+                break;
         }
 
-        $datac['total_art'] = sizeof($all_product); /* Almacena el total de articulos */
-        $datac['temas'] = $this->get_festividades_by_menu($all_product);
-        $datac['marcas'] = $this->get_marcas_by_menu($all_product);
-        $datac['tallas'] = $this->get_tallas_prods($opc);
-        $datac['cant_art'] = $this->get_cant();
-        $datac['orde_por'] = $this->get_ordenar();
+        $where_data = array(
+            'esSuperproducto' => 1, 
+            'estado' => 1, 
+            '(UPPER(sexo1) ="' . strtoupper($opc) . 
+            '" or UPPER(sexo2) ="' . strtoupper($opc) . 
+            '" or UPPER(sexo3) ="' . strtoupper($opc) . '")' => null
+        );
 
-        $datac['busq_opcion'] = $opc; //permite guardar el criterio de busqueda
-        $datac['busq_desde'] = 'MENU'; //permite identificar el lugar desde el que se esta haciendo la busqueda
+        $fields = 'COUNT(*) total';
+
+        $all_product = $this->generic_model->get('billing_producto', $where_data, $fields, $order_by = null, $rows = 1)->total;
+
+        $datac['temas']     = $this->get_festividades_by_menu();
+        $datac['marcas']    = $this->get_marcas_by_menu();
+        $datac['tallas']    = $this->get_tallas_prods();
+        /*$datac['cant_art']  = $this->get_cant();
+        $datac['orde_por']  = $this->get_ordenar();
+
+        $datac['busq_opcion'] = $opc;
+        $datac['busq_desde']  = 'MENU';
 
         $val_precio_min = $this->get_min_precio_local1($opc);
         $val_precio_max = $this->get_max_precio_local2($opc);
@@ -79,75 +151,91 @@ class Products_menu extends CI_Controller {
             $datac['precio_max'] = number_decimal($val_precio_max->max_l2 + ($val_precio_max->max_l2 * get_settings('IVA') / 100));
         } else {
             $datac['precio_max'] = 0;
-        }
+        }*/
 
-        $datac["productos"] = $prod_view;
-        $datac['producto_nombre'] = array();
-        $datac["idgrupo"] = '';
-        $datac['name_prod'] = '';
+        $datac["product_count"]   = $all_product;
 
-        $res['view'] = $this->load->view('products/content', $datac, TRUE);
-        $res['title'] = 'Disfraces';
-        $this->load->view('templates/dashboard', $res);
+        echo json_encode($datac);
     }
 
-    public function get_tallas_prods($opc) {
-        $fields = 'DISTINCT(bp.talla) talla';
-        $where_data = array('talla <>' => null, 'esSuperproducto' => '1', 'estado' => '1', 'sexo1 like' => $opc);
-        $or_where = array('sexo2 like' => $opc, 'sexo3 like' => $opc);
-        $res = $this->generic_model->get('billing_producto bp', $where_data, $fields, null, 0, null, null, null, $or_where);
-        return $res;
+    public function get_tallas_prods()
+    {
+        $fields     = 'DISTINCT(p.talla) talla';
+        $where_data = array(
+            '!ISNULL(p.talla) and p.talla !='=>'',
+            'esSuperproducto' => '1', 
+            'estado' => '1'
+        );
+        $data        = $this->generic_model->get('billing_producto p', $where_data, $fields);
+        return $data;
     }
 
-    public function get_festividades_by_menu($products) {
+    public function get_festividades_by_menu()
+    {
 
-        foreach ($products as $value) {
+        $fields     = 'DISTINCT(UPPER(p.festiv1)) festividad';
+        $where_festiv1 = array(
+            'p.esSuperproducto' => '1', 
+            'p.estado' => '1',
+            '!ISNULL(p.festiv1) and p.festiv1 !='=>''
+        );
+        $festiv1        = $this->generic_model->get('billing_producto p', $where_festiv1, $fields);
 
-            if (!$this->existe_festividad_busc($value->festiv1) && !empty($value->festiv1)) {
-                array_push($this->list_fest_by_menu, $value->festiv1);
-            }
+        $where_festiv2 = array(
+            'p.esSuperproducto' => '1', 
+            'p.estado' => '1',
+            '!ISNULL(p.festiv2) and p.festiv2 !='=>''
+        );
 
-            if (!$this->existe_festividad_busc($value->festiv2) && !empty($value->festiv2)) {
-                array_push($this->list_fest_by_menu, $value->festiv2);
-            }
+        $fields     = 'DISTINCT(UPPER(p.festiv2)) festividad';
+        $festiv2        = $this->generic_model->get('billing_producto p', $where_festiv2, $fields);
 
-            if (!$this->existe_festividad_busc($value->festiv3) && !empty($value->festiv3)) {
-                array_push($this->list_fest_by_menu, $value->festiv3);
-            }
-        }
+        $where_festiv3 = array(
+            'p.esSuperproducto' => '1', 
+            'p.estado' => '1',
+            '!ISNULL(p.festiv3) and p.festiv3 !='=>''
+        );
 
-        return $this->list_fest_by_menu;
+        $fields     = 'DISTINCT(UPPER(p.festiv3)) festividad';
+        $festiv3        = $this->generic_model->get('billing_producto p', $where_festiv3, $fields);
+
+        $send = array_merge((array)$festiv1, (array)$festiv2, (array)$festiv3);
+        return $send;
     }
 
-    public function get_marcas_by_menu($products) {
-        foreach ($products as $value) {
-            if (!$this->existe_marca_busc($value->marca_id)) {
-                $marca = $this->generic_model->get('billing_marca', array('id' => $value->marca_id), '', null, 1);
-                array_push($this->list_marcas_by_menu, $marca);
-            }
-        }
+    public function get_marcas_by_menu()
+    {
+        $where = array(
+            '!ISNULL(m.nombre) and m.nombre !='=>''
+        );
 
-        return $this->list_marcas_by_menu;
+        $fields     = 'DISTINCT(UPPER(m.nombre)) marca, m.id';
+        $data        = $this->generic_model->get('billing_marca m', $where, $fields);
+
+        return $data;
     }
 
-    public function get_min_precio_local1($opc) {
-        $fields = 'MIN(pvppromo) min_l1';
+    public function get_min_precio_local1($opc)
+    {
+        $fields     = 'MIN(pvppromo) min_l1';
         $where_data = array('esSuperproducto' => '1', 'estado' => '1', 'sexo1 like' => $opc);
-        $or_where = array('sexo2 like' => $opc, 'sexo3 like' => $opc);
-        $res = $this->generic_model->get('billing_producto bp', $where_data, $fields, null, 1, null, null, null, $or_where);
+        $or_where   = array('sexo2 like' => $opc, 'sexo3 like' => $opc);
+        $res        = $this->generic_model->get('billing_producto bp', $where_data, $fields, null, 1, null, null, null, $or_where);
         return $res;
     }
 
-    public function get_max_precio_local2($opc) {
-        $fields = 'MAX(finpvppromo) max_l2';
+    public function get_max_precio_local2($opc)
+    {
+        $fields     = 'MAX(finpvppromo) max_l2';
         $where_data = array('esSuperproducto' => '1', 'estado' => '1', 'sexo1 like' => $opc);
-        $or_where = array('sexo2 like' => $opc, 'sexo3 like' => $opc);
-        $res = $this->generic_model->get('billing_producto bp', $where_data, $fields, null, 1, null, null, null, $or_where);
+        $or_where   = array('sexo2 like' => $opc, 'sexo3 like' => $opc);
+        $res        = $this->generic_model->get('billing_producto bp', $where_data, $fields, null, 1, null, null, null, $or_where);
         return $res;
     }
 
-    public function existe_festividad_busc($fest) {
-        $existe = false;
+    public function existe_festividad_busc($fest)
+    {
+        $existe    = false;
         $cont_fest = 0;
         while (!$existe && $cont_fest < sizeof($this->list_fest_by_menu)) {
             if ($fest == $this->list_fest_by_menu[$cont_fest]) {
@@ -158,8 +246,9 @@ class Products_menu extends CI_Controller {
         return $existe;
     }
 
-    public function existe_marca_busc($marca) {
-        $existe = false;
+    public function existe_marca_busc($marca)
+    {
+        $existe     = false;
         $cont_marca = 0;
         while (!$existe && $cont_marca < sizeof($this->list_marcas_by_menu)) {
             if ($marca == $this->list_marcas_by_menu[$cont_marca]->id) {
@@ -170,44 +259,40 @@ class Products_menu extends CI_Controller {
         return $existe;
     }
 
-    private function products_in_bod($productos) {
+    private function products_in_bod($productos)
+    {
         $prod = '';
         foreach ($productos as $key => $value) {
             $prod[$key] = (object) array(
-                        'codigo' => $value->codigo,
-                        'codigo2' => $value->codigo2,
-                        'nombreUnico' => $value->nombreUnico,
-                        'stockactual' => $value->stockactual,
-                        'costopromediokardex' => $value->costopromediokardex,
-                        'cod_sup' => $value->cod_sup
+                'codigo'              => $value->codigo,
+                'codigo2'             => $value->codigo2,
+                'nombreUnico'         => $value->nombreUnico,
+                'stockactual'         => $value->stockactual,
+                'costopromediokardex' => $value->costopromediokardex,
+                'cod_sup'             => $value->cod_sup,
             );
         }
         return $prod;
     }
 
-    public function get_cant() {
-//        $cant_art[0] = array(
-//            '0' => array('cod_cant' => '12', 'name_cant' => '12'),
-//            '1' => array('cod_cant' => '24', 'name_cant' => '24'),
-//            '2' => array('cod_cant' => '36', 'name_cant' => '36'),
-//            '3' => array('cod_cant' => '48', 'name_cant' => '48')
-//        );
-        
+    public function get_cant()
+    {
+
         $cant_art[0] = array('cod_cant' => '12', 'name_cant' => '12');
         $cant_art[1] = array('cod_cant' => '24', 'name_cant' => '24');
         $cant_art[2] = array('cod_cant' => '36', 'name_cant' => '36');
         $cant_art[3] = array('cod_cant' => '48', 'name_cant' => '48');
-        
+
         return $cant_art;
     }
 
-    public function get_ordenar() {
+    public function get_ordenar()
+    {
         $ordenar_por = array(
             '0' => array('id_orden' => '1', 'crit_orden' => 'Nombre'),
-            '1' => array('id_orden' => '2', 'crit_orden' => 'Precio')
+            '1' => array('id_orden' => '2', 'crit_orden' => 'Precio'),
         );
 
         return $ordenar_por;
     }
-
 }

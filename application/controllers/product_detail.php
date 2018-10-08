@@ -1,10 +1,6 @@
 <?php
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-/**
- * Description of product_detail
- *
- * @author MARIUXI
- */
+
 class Product_detail extends CI_Controller {
 
     public function __construct() {
@@ -58,7 +54,7 @@ class Product_detail extends CI_Controller {
         $join_cluase = array(
             '0' => array('table' => 'bill_productoimpuestotarifa pit', 'condition' => 'pit.producto_id = p.codigo', 'type' => 'LEFT'),
             '1' => array('table' => 'bill_impuestotarifa it', 'condition' => 'it.id = pit.impuestotarifa_id', 'type' => 'LEFT'),
-            '2' => array('table' => 'billing_stockbodega sb', 'condition' => 'sb.producto_codigo = p.codigo AND (p.esSuperproducto = 1 )')//OR p.marca_id=207
+            '2' => array('table' => 'billing_stockbodega sb', 'condition' => 'sb.producto_codigo = p.codigo AND (p.esSuperproducto = 1 )')
         );
         $fields = 'SUBSTRING(p.nombreUnico,1,20) nombre_view,p.*,it.tarporcent, SUBSTRING(p.codigo2,(1),LENGTH(p.codigo2) - 2) AS cod_sup';
         $group_by = 'p.codigo2';
@@ -98,5 +94,4 @@ class Product_detail extends CI_Controller {
 
         return $stock;
     }
-
 }

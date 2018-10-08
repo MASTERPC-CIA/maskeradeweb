@@ -1,2 +1,0 @@
-# maskeradeweb
-Pagina para maskerade

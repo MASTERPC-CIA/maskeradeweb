@@ -1,20 +1,31 @@
 <?php
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-/**
- * Description of main
- *
- * @author MARIUXI
- */
+
 class Main extends CI_Controller {
+
     public function __construct() {
         parent::__construct();
     }
 
     public function index() {
-        $res['view'] = $this->load->view('pages/home', '', TRUE);
-        $res['title'] = 'Inicio';
-        $this->load->view('templates/dashboard', $res);
+        $send['app']                  = 'appMaskerade';
+        $send['angularjs']            = $this->load_angularjs();
+        $send['title'] = 'Inicio';
+        $this->load->view('templates/dashboard', $send);
     }
+
+    public function load_angularjs()
+    {
+        return array(
+            base_url('assets/angularjs/code/app.js'),
+            base_url('assets/angularjs/code/controller.js'),
+        );
+    }
+
+    public function load_main() {
+        $this->load->view('pages/home');
+    }
+
     public function load_view_dhombres() {
         $this->load->view('dhombres');
     }
