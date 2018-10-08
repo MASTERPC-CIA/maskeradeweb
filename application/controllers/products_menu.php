@@ -60,37 +60,46 @@ class Products_menu extends CI_Controller
             $where_data['UPPER(nombreUnico) like '] = '%'.strtoupper($data->cadena).'%';
         }
 
-        $fields = '*';
+        $fields = 'codigo, nombreUnico, img';
 
         $order_by = array('codigo' => 'ASC');
 
-        $all_product_inicio = $this->generic_model->get('billing_producto', $where_data, $fields, $order_by, $data->pageNumber * $data->productosPerPage);
+        $limit = $data->pageNumber * $data->productosPerPage;
 
-        $where_data['codigo >='] = $all_product_inicio[count($all_product_inicio)-1]->codigo;
+        $all_product_inicio = $this->generic_model->get('billing_producto', $where_data, $fields, $order_by, $limit);
+        
+        if($all_product_inicio){
+            $index = ($limit - $data->productosPerPage);
+            $hasta = $all_product_inicio[$index]->codigo;
 
-        $all_product = $this->generic_model->get('billing_producto', $where_data, $fields, $order_by, $data->productosPerPage);
+            $where_data['codigo >='] = $hasta;
 
-        $tipos_files = array('jpg','bmp','png','jpeg');
+            $all_product = $this->generic_model->get('billing_producto', $where_data, $fields, $order_by, $data->productosPerPage);
 
-        foreach ($all_product as $prod) {
-            $bandera = false;
-            foreach ($tipos_files as $value) {
-                $imagencargar = get_settings('DOWNLOAD_FACT_XML') . $prod->codigo . '.' .$value;
-                $file_headers = @get_headers($imagencargar);
-                if(!$file_headers || $file_headers[0] == 'HTTP/1.0 200 OK' || $file_headers[0] == 'HTTP/1.1 200 OK') {
-                    $bandera = true;
-                    break;
+            $tipos_files = array('jpg','bmp','png','jpeg');
+
+            foreach ($all_product as $prod) {
+                $bandera = false;
+                foreach ($tipos_files as $value) {
+                    $imagencargar = get_settings('DOWNLOAD_FACT_XML') . $prod->codigo . '.' .$value;
+                    $file_headers = @get_headers($imagencargar);
+                    if(!$file_headers || $file_headers[0] == 'HTTP/1.0 200 OK' || $file_headers[0] == 'HTTP/1.1 200 OK') {
+                        $bandera = true;
+                        break;
+                    }
                 }
+
+                if(!$bandera){
+                    $imagencargar = get_settings('DOWNLOAD_FACT_XML') . 'no_disponible.png';
+                }
+                $prod->img = $imagencargar;
+                $prod->nombreUnico = strstr($prod->nombreUnico, ' ', true);
             }
 
-            if(!$bandera){
-                $imagencargar = get_settings('DOWNLOAD_FACT_XML') . 'no_disponible.png';
-            }
-            $prod->img = $imagencargar;
-            $prod->nombreUnico = strstr($prod->nombreUnico, ' ', true);
+            $datac["productos"]       = $all_product;
+        }else{
+            $datac["productos"]       = null;
         }
-
-        $datac["productos"]       = $all_product;
 
         echo json_encode($datac);
     }
