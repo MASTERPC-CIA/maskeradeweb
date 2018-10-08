@@ -16,7 +16,7 @@
                         </li>
                         <ul class="sub-menu collapse" id="products">
                             <li ng-repeat='t in temas'><?php 
-                                echo input(array('type' => 'checkbox', 'name' => 'selected_fest[]', 'value' => '{{t.festividad}}')) . '  {{t.festividad}}';
+                                echo input(array('type' => 'checkbox', 'ng-click'=>'filtrar(t.festividad)')) . '  {{t.festividad}}';
                             ?></li>
                         </ul>
 
@@ -25,8 +25,7 @@
                         </li>  
                         <ul class="sub-menu collapse" id="service">
                             <li ng-repeat='m in marcas'><?php 
-                                echo tagcontent('input', ' ', array('type' => 'checkbox', 'value' => '{{m.id}}')) . '  {{m.marca}}' ;
-                            
+                                echo input(array('type'=>'checkbox', 'ng-click'=>'filtrar(t.festividad)')) . '  {{m.marca}}' ;
                             ?></li>
                         </ul>
 
@@ -36,7 +35,7 @@
                         </li>
                         <ul class="sub-menu collapse" id="new">
                             <li ng-repeat='t in tallas'><?php
-                                echo tagcontent('input', ' ', array('type' => 'checkbox', 'value' => '{{t.talla}}')) . '  {{t.talla}}' ;
+                                echo input(array('input'=> 'checkbox', 'ng-click'=>'filtrar(t.festividad)')) . '  {{t.talla}}' ;
                             ?></li>
                         </ul>
                         <li>

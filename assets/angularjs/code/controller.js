@@ -51,4 +51,18 @@ app.controller('CtrlProducts', function($scope, $filter, $location, $http, $rout
             $scope.cadena = '';
         });
     };
+
+    $scope.filtrar = function(cadena) {
+        var send = {
+            'tipo':$routeParams.tipo,
+            'pageNumber':1, 
+            'productosPerPage':$scope.productosPerPage,
+            'festividad':cadena
+        };
+        $http.post('products_menu/get_productos_x_tipo', send).then(function(result) {
+            $scope.totalProductos = result.data.product_count;
+            $scope.productos = result.data.productos;
+            $scope.cadena = '';
+        });
+    };
 });

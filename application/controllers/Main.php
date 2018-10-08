@@ -21,11 +21,9 @@ class Main extends CI_Controller {
             base_url('assets/angularjs/code/controller.js'),
         );
     }
-
     public function load_main() {
         $this->load->view('pages/home');
     }
-
     public function load_view_dhombres() {
         $this->load->view('dhombres');
     }

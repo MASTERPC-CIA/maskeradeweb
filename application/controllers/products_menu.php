@@ -60,6 +60,10 @@ class Products_menu extends CI_Controller
             $where_data['UPPER(nombreUnico) like '] = '%'.strtoupper($data->cadena).'%';
         }
 
+        if(isset($data->festividad)){
+            $where_data['UPPER(festiv1) like '] = '%'.strtoupper($data->festividad).'%';
+        }
+
         $fields = 'codigo, nombreUnico, img';
 
         $order_by = array('codigo' => 'ASC');
