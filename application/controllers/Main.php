@@ -42,13 +42,9 @@ class Main extends CI_Controller {
         $this->load->view('dunisex');
     }
     public function load_view_servicios() {
-        $res['view'] = $this->load->view('pages/servicios', '', TRUE);
-        $res['title'] = 'Servicios';
-        $this->load->view('templates/dashboard', $res);
+        $this->load->view('pages/servicios');
     }
     public function load_view_contactos() {
-        $res['view'] = $this->load->view('pages/contactos', '', TRUE);
-        $res['title'] = 'Contactos';
-        $this->load->view('templates/dashboard', $res);
+        $this->load->view('pages/contactos');
     }
 }

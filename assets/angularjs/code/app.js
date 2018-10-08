@@ -6,25 +6,46 @@ app.config(function ($routeProvider) {
             templateUrl: 'Main/load_main',
             controller: 'CtrlMain'
         })
+        .when('/servicios', {
+            templateUrl: 'Main/load_view_servicios',
+        })
+        .when('/contactos', {
+            templateUrl: 'Main/load_view_contactos',
+        })
         .when('/hombres', {
-            templateUrl: 'products_menu/load_productos_view',
-            controller: 'CtrlHombres'
+            templateUrl: function(params) {
+                var url_complete = 'products_menu/load_productos_view/1';
+                return url_complete;
+            },
+            controller: 'CtrlProducts'
         })
         .when('/mujer', {
-            templateUrl: 'products_menu/load_productos_view',
-            controller: 'CtrlMujer'
+            templateUrl: function(params) {
+                var url_complete = 'products_menu/load_productos_view/2';
+                return url_complete;
+            },
+            controller: 'CtrlProducts'
         })
         .when('/ninio', {
-            templateUrl: 'products_menu/load_productos_view',
-            controller: 'CtrlNinio'
+            templateUrl: function(params) {
+                var url_complete = 'products_menu/load_productos_view/3';
+                return url_complete;
+            },
+            controller: 'CtrlProducts'
         })
         .when('/ninia', {
-            templateUrl: 'products_menu/load_productos_view',
-            controller: 'CtrlNinia'
+            templateUrl: function(params) {
+                var url_complete = 'products_menu/load_productos_view/4';
+                return url_complete;
+            },
+            controller: 'CtrlProducts'
         })
         .when('/bebe', {
-            templateUrl: 'products_menu/load_productos_view',
-            controller: 'CtrlBebe'
+            templateUrl: function(params) {
+                var url_complete = 'products_menu/load_productos_view/5';
+                return url_complete;
+            },
+            controller: 'CtrlProducts'
         })
         .otherwise({redirectTo: '/'});
 });

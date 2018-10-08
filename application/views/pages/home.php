@@ -35,7 +35,7 @@
         <center><img class="img-circle" src="<?php echo base_url('img/img_11.jpg') ?>" alt="servicios" width="140" height="140"></center>
         <center><h2>SERVICIOS</h2></center>
         <p>CONFECCIÓN, ALQUILER, VENTA, IMPORTACIÓN Y EXPORTACIÓN DE DISFRACES Y ACCESORIOS.</p>
-        <p style="text-align: center"><a class="btn btn-danger" href="<?php echo base_url('main/load_view_servicios') ?>" role="button">Leer m&aacute;s &raquo;</a></p>
+        <p style="text-align: center"><a class="btn btn-danger" href="#/servicios" role="button">Leer m&aacute;s &raquo;</a></p>
     </div>
     <div class="col-lg-4">
         <center><img class="img-circle" src="<?php echo base_url('img/img_12.jpg')?>" alt="disfraces" width="140" height="140"></center>
@@ -46,7 +46,7 @@
         <center><img class="img-circle" src="<?php echo base_url('img/img_13.jpg') ?>" alt="contactos" width="140" height="140"></center>
         <center><h2>CONTACTOS</h2></center>
         <p>NUESTRA WEB Y REDES SOCIALES ESTÁN A TU DISPOSICIÓN, BÚSCANOS EN FACEBOOK Y PINTEREST.</p>
-        <p style="text-align: center"><a class="btn btn-warning" href="<?php echo base_url('main/load_view_contactos')?>" role="button">Leer m&aacute;s &raquo;</a></p>
+        <p style="text-align: center"><a class="btn btn-warning" href="#/contactos" role="button">Leer m&aacute;s &raquo;</a></p>
     </div>
 </div>
 <?php

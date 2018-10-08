@@ -4,7 +4,7 @@ echo tagcontent('toaster-container', '' , array('toaster-options'=>"{'time-out':
 
 echo Open('div', array('class' => 'col-md-12 tab-content', 'id' => 'secundaria'));
 
-    echo Open('div' , array('class'=>'form-group col-md-4 pull-right'));
+    echo Open('div' , array('class'=>'form-group col-md-8 pull-right'));
         echo Open('div', array('class'=>'input-group has-default'));
           echo input(array('type'=>"text",'class'=>"form-control input-md", 'ng-model'=>'cadena', 'placeholder'=>"Escriba lo que busca. Ejem: pirata, princesa, payaso, etc."));
           $button = tagcontent('button', '<span class="glyphicon glyphicon-search"></span>', array('class'=>"btn btn-sm btn-success", 'ng-click'=>"buscar(cadena)"));
