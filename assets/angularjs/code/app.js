@@ -12,37 +12,42 @@ app.config(function ($routeProvider) {
         .when('/contactos', {
             templateUrl: 'Main/load_view_contactos',
         })
-        .when('/hombres', {
+        .when('/hombres/', {
             templateUrl: function(params) {
-                var url_complete = 'products_menu/load_productos_view/1';
+                params.tipo = 1;
+                var url_complete = 'products_menu/load_productos_view/'+params.tipo;
                 return url_complete;
             },
             controller: 'CtrlProducts'
         })
         .when('/mujer', {
             templateUrl: function(params) {
-                var url_complete = 'products_menu/load_productos_view/2';
+                params.tipo = 2;
+                var url_complete = 'products_menu/load_productos_view/'+params.tipo;
                 return url_complete;
             },
             controller: 'CtrlProducts'
         })
         .when('/ninio', {
             templateUrl: function(params) {
-                var url_complete = 'products_menu/load_productos_view/3';
+                params.tipo = 3;
+                var url_complete = 'products_menu/load_productos_view/'+params.tipo;
                 return url_complete;
             },
             controller: 'CtrlProducts'
         })
         .when('/ninia', {
             templateUrl: function(params) {
-                var url_complete = 'products_menu/load_productos_view/4';
+                params.tipo = 4;
+                var url_complete = 'products_menu/load_productos_view/'+params.tipo;
                 return url_complete;
             },
             controller: 'CtrlProducts'
         })
         .when('/bebe', {
             templateUrl: function(params) {
-                var url_complete = 'products_menu/load_productos_view/5';
+                params.tipo = 5;
+                var url_complete = 'products_menu/load_productos_view/'+params.tipo;
                 return url_complete;
             },
             controller: 'CtrlProducts'

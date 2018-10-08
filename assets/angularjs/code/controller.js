@@ -3,7 +3,6 @@ app.controller('CtrlMain', function($scope, $filter, $location, $http) {
 });
 
 app.controller('CtrlProducts', function($scope, $filter, $location, $http, $routeParams) {
-    console.log($routeParams);
 	$scope.productos = [];
     $scope.totalProductos = 0;
     $scope.productosPerPage = 12;
@@ -19,7 +18,7 @@ app.controller('CtrlProducts', function($scope, $filter, $location, $http, $rout
     };
 
     function get_data() {
-        $http.post('products_menu/get_all_productos', {'tipo':1}).then(function(result) {
+        $http.post('products_menu/get_all_productos', {'tipo':$routeParams.tipo}).then(function(result) {
             $scope.totalProductos = result.data.product_count;
             $scope.temas = result.data.temas;
             $scope.marcas = result.data.marcas;
@@ -29,7 +28,7 @@ app.controller('CtrlProducts', function($scope, $filter, $location, $http, $rout
 
     function getResultsPage(pageNumber) {
         let send = {
-            'tipo':1,
+            'tipo':$routeParams.tipo,
             'pageNumber':pageNumber, 
             'productosPerPage':$scope.productosPerPage
         };
@@ -41,7 +40,7 @@ app.controller('CtrlProducts', function($scope, $filter, $location, $http, $rout
 
     $scope.buscar = function(cadena) {
         var send = {
-            'tipo':1,
+            'tipo':$routeParams.tipo,
             'pageNumber':1, 
             'productosPerPage':$scope.productosPerPage,
             'cadena':cadena
