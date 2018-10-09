@@ -4,22 +4,9 @@
 <aside class="main-sidebar">
     <section class="sidebar">
         <div class="nav-side-menu">
-
             <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
-          
-                <div class="menu-list">
-          
-                    <ul id="menu-content" class="menu-content collapse out">
-
-                        <li  data-toggle="collapse" data-target="#products" class="collapsed">
-                          <a href=""><i class="fa fa-gift fa-lg"></i> FESTIVIDADES <span class="arrow"></span></a>
-                        </li>
-                        <ul class="sub-menu collapse" id="products">
-                            <li ng-repeat='t in temas'><?php 
-                                echo input(array('type' => 'checkbox', 'ng-click'=>'filtrar(t.festividad)')) . '  {{t.festividad}}';
-                            ?></li>
-                        </ul>
-
+            <div class="menu-list">
+                <ul id="menu-content" class="menu-content collapse out">
                         <li data-toggle="collapse" data-target="#service" class="collapsed">
                           <a href=""><i class="fa fa-globe fa-lg"></i> SUB-CATEGORIAS <span class="arrow"></span></a>
                         </li>  
@@ -35,7 +22,7 @@
                         </li>
                         <ul class="sub-menu collapse" id="new">
                             <li ng-repeat='t in tallas'><?php
-                                echo input(array('input'=> 'checkbox', 'ng-click'=>'filtrar(t.festividad)')) . '  {{t.talla}}' ;
+                                echo input(array('type'=> 'checkbox', 'ng-click'=>'filtrar(t.talla)')) . '  {{t.talla}}' ;
                             ?></li>
                         </ul>
                         <li>
