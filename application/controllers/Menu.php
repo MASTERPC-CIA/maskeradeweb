@@ -95,6 +95,7 @@ class Menu extends CI_Controller
 
                 if(!$bandera){*/
                     $imagencargar = get_settings('DOWNLOAD_FACT_XML') . 'no_disponible.png';
+                    print_r($imagencargar);echo '<br>';
                 /*}
                 $prod->img = $imagencargar;
                 $prod->nombreUnico = strstr($prod->nombreUnico, ' ', true);*/
