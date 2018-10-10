@@ -141,6 +141,22 @@ class Menu extends CI_Controller
             '" or UPPER(sexo3) ="' . strtoupper($opc) . '")' => null
         );
 
+        if(isset($data->cadena)){
+            $where_data['UPPER(nombreUnico) like '] = '%'.strtoupper($data->cadena).'%';
+        }
+        
+        if(isset($data->festividad)){
+            $where_data['(UPPER(festiv1) like "%'.strtoupper($data->festividad).'%" OR UPPER(festiv2) like "%'.strtoupper($data->festividad).'%" OR UPPER(festiv3) like "%'.strtoupper($data->festividad).'%")'] = null;
+        }
+
+        if(isset($data->marca)){
+            $where_data['marca_id'] = $data->marca;
+        }
+
+        if(isset($data->talla)){
+            $where_data['UPPER(talla) like '] = '%'.strtoupper($data->talla).'%';
+        }
+
         $fields = 'COUNT(*) total';
 
         $all_product = $this->generic_model->get('billing_producto', $where_data, $fields, $order_by = null, $rows = 1)->total;
