@@ -83,7 +83,7 @@ class Menu extends CI_Controller
             $tipos_files = array('jpg','bmp','png','jpeg');
 
             foreach ($all_product as $prod) {
-                /*$bandera = false;
+                $bandera = false;
                 foreach ($tipos_files as $value) {
                     $imagencargar = get_settings('DOWNLOAD_FACT_XML') . $prod->codigo . '.' .$value;
                     $file_headers = @get_headers($imagencargar);
@@ -93,12 +93,12 @@ class Menu extends CI_Controller
                     }
                 }
 
-                if(!$bandera){*/
+                if(!$bandera){
                     $imagencargar = get_settings('DOWNLOAD_FACT_XML') . 'no_disponible.png';
-                    print_r($imagencargar);echo '<br>';
-                /*}
+                    //print_r($imagencargar);echo '<br>';
+                }
                 $prod->img = $imagencargar;
-                $prod->nombreUnico = strstr($prod->nombreUnico, ' ', true);*/
+                $prod->nombreUnico = strstr($prod->nombreUnico, ' ', true);
             }
 
             $datac["productos"]       = $all_product;
