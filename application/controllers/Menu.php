@@ -207,7 +207,7 @@ class Menu extends CI_Controller
         );
 
         $fields     = 'DISTINCT(UPPER(m.nombre)) marca, m.id';
-        $order_by = array('m.marca'=>'ASC');
+        $order_by = array('m.nombre'=>'ASC');
         $data        = $this->generic_model->get('billing_marca m', $where, $fields, $order_by);
 
         return $data;
