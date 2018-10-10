@@ -112,8 +112,9 @@ class Menu extends CI_Controller
             }*/
 
             foreach ($all_product as $prod) {
+                $url = get_settings('DOWNLOAD_FACT_XML').$prod->codigo.'.png';
                 if($this->is_url_exist($url)){
-                    $prod->img = get_settings('DOWNLOAD_FACT_XML').$prod->codigo.'.png';
+                    $prod->img = $url;
                 }else{
                     $prod->img = get_settings('DOWNLOAD_FACT_XML').'no_disponible.png';
                 }
