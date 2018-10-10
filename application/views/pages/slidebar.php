@@ -20,7 +20,7 @@
                         </li>  
                         <ul class="sub-menu collapse" id="marca">
                             <li ng-repeat='m in marcas'><?php 
-                                echo input(array('type'=>'checkbox', 'ng-change'=>'filtrar_marca(m.id, marca)', 'ng-model'=>"marca_value")) . '  {{m.marca}}' ;
+                                echo input(array('type'=>'checkbox', 'ng-change'=>'filtrar_marca(m.id, marca_value)', 'ng-model'=>"marca_value")) . '  {{m.marca}}' ;
                             ?></li>
                         </ul>
                         <li data-toggle="collapse" data-target="#new" class="collapsed">
