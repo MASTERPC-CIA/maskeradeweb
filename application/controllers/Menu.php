@@ -70,7 +70,7 @@ class Menu extends CI_Controller
 
         $limit = $data->pageNumber * $data->productosPerPage;
 
-        $all_product_inicio = $this->generic_model->get('billing_producto', $where_data, $fields, $order_by, $limit);
+        $all_product_inicio = $this->generic_model->get('billing_productos', $where_data, $fields, $order_by, $limit);
         
         if($all_product_inicio){
             $index = ($limit - $data->productosPerPage);
