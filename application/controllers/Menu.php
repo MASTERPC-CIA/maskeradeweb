@@ -59,7 +59,7 @@ class Menu extends CI_Controller
         if(isset($data->cadena)){
             $where_data['UPPER(nombreUnico) like '] = '%'.strtoupper($data->cadena).'%';
         }
-
+        $or_where = null;
         if(isset($data->marca)){
             $where_data['(UPPER(festiv1) like %'.strtoupper($data->marca).'% OR UPPER(festiv2) like %'.strtoupper($data->marca).'% OR UPPER(festiv3) like %'.strtoupper($data->marca).'%'] = '';
         }else{
