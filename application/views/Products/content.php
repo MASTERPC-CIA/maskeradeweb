@@ -21,7 +21,7 @@ echo Open('div', array('class' => 'col-md-12 tab-content', 'id' => 'secundaria')
     echo Close('div');
 
     echo Open('div', array('class'=>'col-md-9'));
-        echo Open('div', array('dir-paginate' => 'p in productos|filter:search|itemsPerPage: productosPerPage" total-items="totalProductos" current-page="pagination.current"'));
+        echo Open('div', array('dir-paginate' => 'p in productos|filter:search|itemsPerPage: productosPerPage" total-items="totalProductos" current-page="pagination.current"', 'ng-show'=>'productos.length > 0'));
 
             $imagenbloc = tagcontent('img', '', array('src' => '{{p.img}}', 'alt' => '', 'style' => 'height:140px;width:140px;margin: auto;', 'class' => 'thumbnail'));
             echo Open('div', array('class' => 'col-md-3 pull-left', 'style' => 'min-height:200px;overflow:hidden'));
@@ -33,5 +33,7 @@ echo Open('div', array('class' => 'col-md-12 tab-content', 'id' => 'secundaria')
             echo Close('div');
         echo Close('div'); 
     echo Close('div');
+
+    echo tagcontent('div', '<strong style="font-size:20px;color:black">No hay coincidencias en la busqueda...!!!!!!!</strong>', array('class' => 'alert alert-warning col-sm-12', 'role' => 'alert', 'ng-show' => 'productos.length === 0'));
 
 echo Close('div');
