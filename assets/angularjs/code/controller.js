@@ -50,45 +50,51 @@ app.controller('CtrlProducts', function($scope, $filter, $location, $http, $rout
         });
     };
 
-    $scope.filtrar_festividades = function(cadena) {
-        var send = {
-            'tipo':$routeParams.tipo,
-            'pageNumber':1, 
-            'productosPerPage':$scope.productosPerPage,
-            'festividad':cadena
-        };
-        $http.post('Menu/get_productos_x_tipo', send).then(function(result) {
-            $scope.totalProductos = result.data.product_count;
-            $scope.productos = result.data.productos;
-            $scope.cadena = '';
-        });
+    $scope.filtrar_festividades = function(cadena, value) {
+        if(value){
+            var send = {
+                'tipo':$routeParams.tipo,
+                'pageNumber':1, 
+                'productosPerPage':$scope.productosPerPage,
+                'festividad':cadena
+            };
+            $http.post('Menu/get_productos_x_tipo', send).then(function(result) {
+                $scope.totalProductos = result.data.product_count;
+                $scope.productos = result.data.productos;
+                $scope.cadena = '';
+            });
+        }
     };
 
-    $scope.filtrar_marca = function(cadena) {
-        var send = {
-            'tipo':$routeParams.tipo,
-            'pageNumber':1, 
-            'productosPerPage':$scope.productosPerPage,
-            'marca':cadena
-        };
-        $http.post('Menu/get_productos_x_tipo', send).then(function(result) {
-            $scope.totalProductos = result.data.product_count;
-            $scope.productos = result.data.productos;
-            $scope.cadena = '';
-        });
+    $scope.filtrar_marca = function(cadena, value) {
+        if(value){
+            var send = {
+                'tipo':$routeParams.tipo,
+                'pageNumber':1, 
+                'productosPerPage':$scope.productosPerPage,
+                'marca':cadena
+            };
+            $http.post('Menu/get_productos_x_tipo', send).then(function(result) {
+                $scope.totalProductos = result.data.product_count;
+                $scope.productos = result.data.productos;
+                $scope.cadena = '';
+            });
+        }
     };
 
-    $scope.filtrar_talla = function(cadena) {
-        var send = {
-            'tipo':$routeParams.tipo,
-            'pageNumber':1, 
-            'productosPerPage':$scope.productosPerPage,
-            'talla':cadena
-        };
-        $http.post('Menu/get_productos_x_tipo', send).then(function(result) {
-            $scope.totalProductos = result.data.product_count;
-            $scope.productos = result.data.productos;
-            $scope.cadena = '';
-        });
+    $scope.filtrar_talla = function(cadena, value) {
+        if(value){
+            var send = {
+                'tipo':$routeParams.tipo,
+                'pageNumber':1, 
+                'productosPerPage':$scope.productosPerPage,
+                'talla':cadena
+            };
+            $http.post('Menu/get_productos_x_tipo', send).then(function(result) {
+                $scope.totalProductos = result.data.product_count;
+                $scope.productos = result.data.productos;
+                $scope.cadena = '';
+            });
+        }
     };
 });

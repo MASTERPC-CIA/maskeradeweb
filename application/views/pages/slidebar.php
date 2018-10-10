@@ -12,7 +12,7 @@
                         </li>  
                         <ul class="sub-menu collapse" id="service">
                             <li ng-repeat='f in festividades'><?php 
-                                echo input(array('type'=>'checkbox', 'ng-click'=>'filtrar_festividades(f.festividad)')) . '  {{f.festividad}}' ;
+                                echo input(array('type'=>'checkbox', 'ng-change'=>'filtrar_festividades(f.festividad, festividad_value)', 'ng-model'=>"festividad_value")) . '  {{f.festividad}}' ;
                             ?></li>
                         </ul>
                         <li data-toggle="collapse" data-target="#marca" class="collapsed">
@@ -20,7 +20,7 @@
                         </li>  
                         <ul class="sub-menu collapse" id="marca">
                             <li ng-repeat='m in marcas'><?php 
-                                echo input(array('type'=>'checkbox', 'ng-click'=>'filtrar_marca(m.id)')) . '  {{m.marca}}' ;
+                                echo input(array('type'=>'checkbox', 'ng-change'=>'filtrar_marca(m.id, marca)', 'ng-model'=>"marca_value")) . '  {{m.marca}}' ;
                             ?></li>
                         </ul>
                         <li data-toggle="collapse" data-target="#new" class="collapsed">
@@ -28,7 +28,7 @@
                         </li>
                         <ul class="sub-menu collapse" id="new">
                             <li ng-repeat='t in tallas'><?php
-                                echo input(array('type'=> 'checkbox', 'ng-click'=>'filtrar_talla(t.talla)')) . '  {{t.talla}}' ;
+                                echo input(array('type'=> 'checkbox', 'ng-change'=>'filtrar_talla(t.talla, talla_value)', 'ng-model'=>"talla_value")) . '  {{t.talla}}' ;
                             ?></li>
                         </ul>
                     </ul>
