@@ -23,7 +23,7 @@ class Menu extends CI_Controller
 
     public function load_productos_view()
     {
-        $this->load->view('products/content');
+//        $this->load->view('products/content');
     }
 
     public function get_productos_x_tipo()
