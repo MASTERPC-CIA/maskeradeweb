@@ -80,9 +80,9 @@ class Menu extends CI_Controller
 
             $all_product = $this->generic_model->get('billing_producto', $where_data, $fields, $order_by, $data->productosPerPage);
 
-            $tipos_files = array('jpg','bmp','png','jpeg');
+            /*$tipos_files = array('jpg','bmp','png','jpeg');
 
-            /*foreach ($all_product as $prod) {
+            foreach ($all_product as $prod) {
                 $bandera = false;
                 foreach ($tipos_files as $value) {
                     $imagencargar = get_settings('DOWNLOAD_FACT_XML') . $prod->codigo . '.' .$value;
@@ -99,6 +99,14 @@ class Menu extends CI_Controller
                 $prod->img = $imagencargar;
                 $prod->nombreUnico = strstr($prod->nombreUnico, ' ', true);
             }*/
+            foreach ($all_product as $prod) {
+                $url = get_settings('DOWNLOAD_FACT_XML').$prod->codigo.'.jpg';
+                if($this->is_url_exist($url)){
+                    $prod->img = $url;
+                }else{
+                    $prod->img = get_settings('DOWNLOAD_FACT_XML').'no_disponible.png';
+                }
+            }
 
             $datac["productos"]       = $all_product;
         }else{
@@ -106,6 +114,21 @@ class Menu extends CI_Controller
         }
 
         echo json_encode($datac);
+    }
+
+    private function is_url_exist($url){
+        $ch = curl_init($url);    
+        curl_setopt($ch, CURLOPT_NOBODY, true);
+        curl_exec($ch);
+        $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+        if($code == 200){
+            $status = true;
+        }else{
+            $status = false;
+        }
+        curl_close($ch);
+        return $status;
     }
 
     public function get_all_productos()
