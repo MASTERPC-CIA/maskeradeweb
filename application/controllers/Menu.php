@@ -60,7 +60,7 @@ class Menu extends CI_Controller
         }
 
         if(isset($data->talla)){
-            $where_data['UPPER(talla) like '] = '%'.strtoupper($data->festividad).'%';
+            $where_data['UPPER(talla) like '] = '%'.strtoupper($data->talla).'%';
         }
 
         $fields = 'codigo, SUBSTRING(nombreUnico,1,10) nombreUnico, img';
