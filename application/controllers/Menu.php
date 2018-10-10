@@ -64,6 +64,8 @@ class Menu extends CI_Controller
             $or_where['UPPER(festiv1) like '] = '%'.strtoupper($data->festividad).'%';
             $or_where['UPPER(festiv2) like '] = '%'.strtoupper($data->festividad).'%';
             $or_where['UPPER(festiv3) like '] = '%'.strtoupper($data->festividad).'%';
+        }else{
+            $or_where = null;
         }
 
         if(isset($data->talla)){
