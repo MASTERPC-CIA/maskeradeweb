@@ -86,7 +86,7 @@ class Menu extends CI_Controller
 
             $where_data['codigo >='] = $hasta;
 
-            $all_product = $this->generic_model->get('billing_producto', $where_data, $fields, $order_by, $data->productosPerPage);
+            $all_product = $this->generic_model->get('billing_producto', $where_data, $fields, $order_by, $data->productosPerPage, $or_like_data = null, $and_like_data = null, $group_by = null, $or_where);
 
             foreach ($all_product as $prod) {
                 $url = get_settings('DOWNLOAD_FACT_XML').$prod->codigo.'.jpg';
