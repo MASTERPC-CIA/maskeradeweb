@@ -1,3 +1,5 @@
+app.controller('CtrlMain', function($scope, $filter, $location, $http, $routeParams) {
+});
 app.controller('CtrlProducts', function($scope, $filter, $location, $http, $routeParams) {
     $scope.productos = [];
     $scope.totalProductos = 0;
