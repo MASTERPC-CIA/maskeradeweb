@@ -12,10 +12,6 @@ echo Open('div', array('class' => 'tab-content', 'id' => 'secundaria'));
         echo Close('div');
     echo Close('div');
 
-    /*echo Open('div', array('class' => 'col-sm-12', 'align' => 'right'));
-        echo tagcontent('dir-pagination-controls', '', array('max-size' => 'totalProductos', 'direction-links' => 'true', 'boundary-links' => 'true', 'on-page-change'=>"pageChanged(newPageNumber)"));
-    echo Close('div');*/
-
     echo Open('div', array('id'=>'sec_bq_sidebar', 'class'=>'col-md-3'));
         $this->load->view('pages/slidebar');
     echo Close('div');
@@ -37,7 +33,7 @@ echo Open('div', array('class' => 'tab-content', 'id' => 'secundaria'));
         echo Close('div'); 
     echo Close('div');
 
-    echo Open('div', array('class'=>'col-md-9', 'ng-show' => 'productos.length === 0'));
+    echo Open('div', array('class'=>'col-md-9', 'ng-show' => 'productos === null'));
         echo tagcontent('div', '<strong style="font-size:20px;color:black">No hay coincidencias en la busqueda...!!!!!!!</strong>', array('class' => 'alert alert-warning col-sm-12', 'role' => 'alert'));
     echo Close('div');
 
