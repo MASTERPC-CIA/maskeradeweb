@@ -101,7 +101,7 @@ class Menu extends CI_Controller
             }*/
             foreach ($all_product as $prod) {
                 $url = get_settings('DOWNLOAD_FACT_XML').$prod->codigo.'.jpg';
-                print_r($url);echo '<br>';
+                //print_r($url);echo '<br>';
                 if($this->is_url_exist($url)){
                     $prod->img = $url;
                 }else{
