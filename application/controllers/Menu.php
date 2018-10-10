@@ -59,11 +59,13 @@ class Menu extends CI_Controller
         if(isset($data->cadena)){
             $where_data['UPPER(nombreUnico) like '] = '%'.strtoupper($data->cadena).'%';
         }
-        $or_where = null;
+        
+        if(isset($data->festividad)){
+            $where_data['(UPPER(festiv1) like "%'.strtoupper($data->festividad).'%" OR UPPER(festiv2) like "%'.strtoupper($data->festividad).'%" OR UPPER(festiv3) like "%'.strtoupper($data->festividad).'%")'] = null;
+        }
+
         if(isset($data->marca)){
-            $where_data['(UPPER(festiv1) like "%'.strtoupper($data->marca).'%" OR UPPER(festiv2) like "%'.strtoupper($data->marca).'%" OR UPPER(festiv3) like "%'.strtoupper($data->marca).'%")'] = null;
-        }else{
-            $or_where = null;
+            $where_data['UPPER(talla) like '] = '%'.strtoupper($data->festividad).'%';
         }
 
         if(isset($data->talla)){
@@ -152,7 +154,7 @@ class Menu extends CI_Controller
 
         $all_product = $this->generic_model->get('billing_producto', $where_data, $fields, $order_by = null, $rows = 1)->total;
 
-        $datac['temas']     = $this->get_festividades_by_menu();
+        $datac['festividades']     = $this->get_festividades_by_menu();
         $datac['marcas']    = $this->get_marcas_by_menu();
         $datac['tallas']    = $this->get_tallas_prods();
         $datac["product_count"]   = $all_product;

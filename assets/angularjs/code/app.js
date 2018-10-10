@@ -4,7 +4,6 @@ app.config(function ($routeProvider) {
     $routeProvider
         .when('/', {
             templateUrl: 'Main/load_main',
-            controller: 'CtrlMain'
         })
         .when('/servicios', {
             templateUrl: 'Main/load_view_servicios',

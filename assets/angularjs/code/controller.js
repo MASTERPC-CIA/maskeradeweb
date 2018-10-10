@@ -1,9 +1,4 @@
-app.controller('CtrlMain', function($scope, $filter, $location, $http) {
-    
-});
-
 app.controller('CtrlProducts', function($scope, $filter, $location, $http, $routeParams) {
-    console.log('hola');
     $scope.productos = [];
     $scope.totalProductos = 0;
     $scope.productosPerPage = 12;
@@ -21,7 +16,7 @@ app.controller('CtrlProducts', function($scope, $filter, $location, $http, $rout
     function get_data() {
         $http.post('Menu/get_all_productos', {'tipo':$routeParams.tipo}).then(function(result) {
             $scope.totalProductos = result.data.product_count;
-            $scope.temas = result.data.temas;
+            $scope.festividades = result.data.festividades;
             $scope.marcas = result.data.marcas;
             $scope.tallas = result.data.tallas;
         });
@@ -45,6 +40,20 @@ app.controller('CtrlProducts', function($scope, $filter, $location, $http, $rout
             'pageNumber':1, 
             'productosPerPage':$scope.productosPerPage,
             'cadena':cadena
+        };
+        $http.post('Menu/get_productos_x_tipo', send).then(function(result) {
+            $scope.totalProductos = result.data.product_count;
+            $scope.productos = result.data.productos;
+            $scope.cadena = '';
+        });
+    };
+
+    $scope.filtrar_festividades = function(cadena) {
+        var send = {
+            'tipo':$routeParams.tipo,
+            'pageNumber':1, 
+            'productosPerPage':$scope.productosPerPage,
+            'festividad':cadena
         };
         $http.post('Menu/get_productos_x_tipo', send).then(function(result) {
             $scope.totalProductos = result.data.product_count;

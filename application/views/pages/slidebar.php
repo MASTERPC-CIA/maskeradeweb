@@ -8,15 +8,21 @@
             <div class="menu-list">
                 <ul id="menu-content" class="menu-content collapse out">
                         <li data-toggle="collapse" data-target="#service" class="collapsed">
-                          <a href=""><i class="fa fa-globe fa-lg"></i> SUB-CATEGORIAS <span class="arrow"></span></a>
+                          <a href=""><i class="fa fa-globe fa-lg"></i> FESTIVIDADES <span class="arrow"></span></a>
+                        </li>  
+                        <ul class="sub-menu collapse" id="service">
+                            <li ng-repeat='f in festividades'><?php 
+                                echo input(array('type'=>'checkbox', 'ng-click'=>'filtrar_festividades(f.festividad)')) . '  {{f.festividad}}' ;
+                            ?></li>
+                        </ul>
+                        <li data-toggle="collapse" data-target="#service" class="collapsed">
+                          <a href=""><i class="fa fa-globe fa-lg"></i> MARCAS <span class="arrow"></span></a>
                         </li>  
                         <ul class="sub-menu collapse" id="service">
                             <li ng-repeat='m in marcas'><?php 
                                 echo input(array('type'=>'checkbox', 'ng-click'=>'filtrar_marca(m.marca)')) . '  {{m.marca}}' ;
                             ?></li>
                         </ul>
-
-
                         <li data-toggle="collapse" data-target="#new" class="collapsed">
                           <a href=""><i class="fa fa-car fa-lg"></i> TALLAS<span class="arrow"></span></a>
                         </li>
@@ -25,11 +31,6 @@
                                 echo input(array('type'=> 'checkbox', 'ng-click'=>'filtrar_talla(t.talla)')) . '  {{t.talla}}' ;
                             ?></li>
                         </ul>
-                        <!-- <li>
-                            <a href="">
-                                <i class="fa fa-user fa-lg"></i> PRECIOS
-                            </a>
-                        </li> -->
                     </ul>
              </div>
         </div>
