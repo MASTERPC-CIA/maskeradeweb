@@ -1,10 +1,9 @@
 app.controller('CtrlMain', function($scope, $filter, $location, $http) {
-    $locationProvider.html5Mode(false);
+    
 });
 
 app.controller('CtrlProducts', function($scope, $filter, $location, $http, $routeParams) {
-    $locationProvider.html5Mode(false);
-	$scope.productos = [];
+    $scope.productos = [];
     $scope.totalProductos = 0;
     $scope.productosPerPage = 12;
     get_data();

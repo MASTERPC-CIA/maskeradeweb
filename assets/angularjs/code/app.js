@@ -1,6 +1,7 @@
 var app = angular.module('appMaskerade', ['ngLoadingSpinner', 'angularUtils.directives.dirPagination', 'ngRoute', 'ui.bootstrap', 'toaster']);
 
 app.config(function ($routeProvider) {
+    $locationProvider.html5Mode(false);
     $routeProvider
         .when('/', {
             templateUrl: 'Main/load_main',
