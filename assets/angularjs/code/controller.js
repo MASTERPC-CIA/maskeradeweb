@@ -3,6 +3,7 @@ app.controller('CtrlMain', function($scope, $filter, $location, $http) {
 });
 
 app.controller('CtrlProducts', function($scope, $filter, $location, $http, $routeParams) {
+    console.log('hola');
     $scope.productos = [];
     $scope.totalProductos = 0;
     $scope.productosPerPage = 12;
