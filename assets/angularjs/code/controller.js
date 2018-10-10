@@ -53,7 +53,7 @@ app.controller('CtrlProducts', function($scope, $filter, $location, $http, $rout
     $scope.filtrar_festividades = function(cadena, value) {
         if(value){
             var send = {
-                'tipo':$routeParams.tipo,
+                //'tipo':$routeParams.tipo,
                 'pageNumber':1, 
                 'productosPerPage':$scope.productosPerPage,
                 'festividad':cadena
@@ -72,7 +72,7 @@ app.controller('CtrlProducts', function($scope, $filter, $location, $http, $rout
     $scope.filtrar_marca = function(cadena, value) {
         if(value){
             var send = {
-                'tipo':$routeParams.tipo,
+                //'tipo':$routeParams.tipo,
                 'pageNumber':1, 
                 'productosPerPage':$scope.productosPerPage,
                 'marca':cadena
@@ -91,7 +91,7 @@ app.controller('CtrlProducts', function($scope, $filter, $location, $http, $rout
     $scope.filtrar_talla = function(cadena, value) {
         if(value){
             var send = {
-                'tipo':$routeParams.tipo,
+                //'tipo':$routeParams.tipo,
                 'pageNumber':1, 
                 'productosPerPage':$scope.productosPerPage,
                 'talla':cadena
