@@ -21,10 +21,10 @@ class Menu extends CI_Controller
         $this->list_marcas_by_menu = array();
     }
 
-    public function load_productos_view()
-    {
+//    public function load_productos_view()
+//    {
 //        $this->load->view('products/content');
-    }
+//    }
 
     public function get_productos_x_tipo()
     {
