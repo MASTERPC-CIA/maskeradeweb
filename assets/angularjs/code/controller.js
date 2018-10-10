@@ -60,6 +60,7 @@ app.controller('CtrlProducts', function($scope, $filter, $location, $http, $rout
             };
             $http.post('Menu/get_all_productos', send).then(function(result) {
                 $scope.totalProductos = result.data.product_count;
+                console.log(result.data.product_count);
             });
             $http.post('Menu/get_productos_x_tipo', send).then(function(result) {
                 $scope.totalProductos = result.data.product_count;
@@ -79,6 +80,7 @@ app.controller('CtrlProducts', function($scope, $filter, $location, $http, $rout
             };
             $http.post('Menu/get_all_productos', send).then(function(result) {
                 $scope.totalProductos = result.data.product_count;
+                console.log(result.data.product_count);
             });
             $http.post('Menu/get_productos_x_tipo', send).then(function(result) {
                 $scope.totalProductos = result.data.product_count;
@@ -98,6 +100,7 @@ app.controller('CtrlProducts', function($scope, $filter, $location, $http, $rout
             };
             $http.post('Menu/get_all_productos', send).then(function(result) {
                 $scope.totalProductos = result.data.product_count;
+                console.log(result.data.product_count);
             });
             $http.post('Menu/get_productos_x_tipo', send).then(function(result) {
                 $scope.totalProductos = result.data.product_count;
