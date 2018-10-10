@@ -99,7 +99,7 @@ class Menu extends CI_Controller
                 $prod->img = $imagencargar;
                 $prod->nombreUnico = strstr($prod->nombreUnico, ' ', true);
             }*/
-            $tipos_files = array('.jpg','.bmp','.png','.jpeg');
+            /*$tipos_files = array('.jpg','.bmp','.png','.jpeg');
             foreach ($all_product as $prod) {
                 $prod->img = get_settings('DOWNLOAD_FACT_XML').'no_disponible.png';
                 foreach ($tipos_files as $type) {
@@ -108,6 +108,14 @@ class Menu extends CI_Controller
                         $prod->img = $url;
                         break;
                     }
+                }
+            }*/
+
+            foreach ($all_product as $prod) {
+                if($this->is_url_exist($url)){
+                    $prod->img = $url;
+                }else{
+                    $prod->img = get_settings('DOWNLOAD_FACT_XML').'no_disponible.png';
                 }
             }
 
