@@ -15,10 +15,10 @@
                                 echo input(array('type'=>'checkbox', 'ng-click'=>'filtrar_festividades(f.festividad)')) . '  {{f.festividad}}' ;
                             ?></li>
                         </ul>
-                        <li data-toggle="collapse" data-target="#service" class="collapsed">
+                        <li data-toggle="collapse" data-target="#marca" class="collapsed">
                           <a href=""><i class="fa fa-globe fa-lg"></i> MARCAS <span class="arrow"></span></a>
                         </li>  
-                        <ul class="sub-menu collapse" id="service">
+                        <ul class="sub-menu collapse" id="marca">
                             <li ng-repeat='m in marcas'><?php 
                                 echo input(array('type'=>'checkbox', 'ng-click'=>'filtrar_marca(m.marca)')) . '  {{m.marca}}' ;
                             ?></li>
