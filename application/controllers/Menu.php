@@ -90,7 +90,7 @@ class Menu extends CI_Controller
 
             $datac["productos"]       = $all_product;
         }else{
-            $datac["productos"]       = null;
+            $datac["productos"]       = [];
         }
 
         echo json_encode($datac);
