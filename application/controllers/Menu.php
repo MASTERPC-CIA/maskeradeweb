@@ -81,11 +81,11 @@ class Menu extends CI_Controller
             $all_product = $this->generic_model->get('billing_producto', $where_data, $fields, $order_by, $data->productosPerPage);
 
             foreach ($all_product as $prod) {
-                $url = get_settings('DOWNLOAD_FACT_XML').$prod->codigo.'.png';
+                $url = get_settings('DOWNLOAD_FACT_XML').$prod->codigo.'.jpg';
                 if($this->is_url_exist($url)){
                     $prod->img = $url;
                 }else{
-                    $prod->img = get_settings('DOWNLOAD_FACT_XML').'no_disponible.png';
+                    $prod->img = get_settings('DOWNLOAD_FACT_XML').'no_disponible.jpg';
                 }
             }
 
