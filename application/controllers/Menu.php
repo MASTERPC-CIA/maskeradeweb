@@ -64,7 +64,7 @@ class Menu extends CI_Controller
             $where_data['UPPER(festiv1) like '] = '%'.strtoupper($data->festividad).'%';
         }
 
-        $fields = 'codigo, nombreUnico, img';
+        $fields = 'codigo, SUBSTRING(nombreUnico,0,10) nombreUnico, img';
 
         $order_by = array('codigo' => 'ASC');
 
