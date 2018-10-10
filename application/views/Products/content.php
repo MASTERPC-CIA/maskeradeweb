@@ -2,7 +2,7 @@
 echo tagcontent('span','', array('us-spinner'=>"{radius:50, width:10, length: 100}"));
 echo tagcontent('toaster-container', '' , array('toaster-options'=>"{'time-out': 3000}"));
 
-echo Open('div', array('class' => 'col-md-12 tab-content', 'id' => 'secundaria'));
+echo Open('div', array('class' => 'tab-content', 'id' => 'secundaria'));
 
     echo Open('div' , array('class'=>'form-group col-md-8 pull-right'));
         echo Open('div', array('class'=>'input-group has-default'));
@@ -20,8 +20,8 @@ echo Open('div', array('class' => 'col-md-12 tab-content', 'id' => 'secundaria')
         $this->load->view('pages/slidebar');
     echo Close('div');
 
-    echo Open('div', array('class'=>'col-md-9'));
-        echo Open('div', array('dir-paginate' => 'p in productos|filter:search|itemsPerPage: productosPerPage" total-items="totalProductos" current-page="pagination.current"', 'ng-show'=>'productos.length > 0'));
+    echo Open('div', array('class'=>'col-md-9', 'ng-show'=>'productos.length > 0'));
+        echo Open('div', array('dir-paginate' => 'p in productos|filter:search|itemsPerPage: productosPerPage" total-items="totalProductos" current-page="pagination.current"'));
 
             $imagenbloc = tagcontent('img', '', array('src' => '{{p.img}}', 'alt' => '', 'style' => 'height:140px;width:140px;margin: auto;', 'class' => 'thumbnail'));
             echo Open('div', array('class' => 'col-md-3 pull-left', 'style' => 'min-height:200px;overflow:hidden'));
@@ -34,6 +34,8 @@ echo Open('div', array('class' => 'col-md-12 tab-content', 'id' => 'secundaria')
         echo Close('div'); 
     echo Close('div');
 
-    echo tagcontent('div', '<strong style="font-size:20px;color:black">No hay coincidencias en la busqueda...!!!!!!!</strong>', array('class' => 'alert alert-warning col-sm-12', 'role' => 'alert', 'ng-show' => 'productos.length === 0'));
+    echo Open('div', array('class'=>'col-md-9', 'ng-show' => 'productos.length === 0'));
+        echo tagcontent('div', '<strong style="font-size:20px;color:black">No hay coincidencias en la busqueda...!!!!!!!</strong>', array('class' => 'alert alert-warning col-sm-12', 'role' => 'alert'));
+    echo Close('div');
 
 echo Close('div');
