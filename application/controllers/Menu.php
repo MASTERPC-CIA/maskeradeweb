@@ -119,31 +119,36 @@ class Menu extends CI_Controller
     {
         $data = json_decode(file_get_contents("php://input"));
 
-        switch ($data->tipo) {
-            case '1':
-                $opc = 'Hombre';
-                break;
-            case '2':
-                $opc = 'Mujer';
-                break;
-            case '3':
-                $opc = 'Niño';
-                break;
-            case '4':
-                $opc = 'Niño';
-                break;
-            case '5':
-                $opc = 'Bebe';
-                break;
-        }
-
         $where_data = array(
             'esSuperproducto' => 1, 
-            'estado' => 1, 
-            '(UPPER(sexo1) ="' . strtoupper($opc) . 
-            '" or UPPER(sexo2) ="' . strtoupper($opc) . 
-            '" or UPPER(sexo3) ="' . strtoupper($opc) . '")' => null
+            'estado' => 1
         );
+
+        if(isset($data->tipo)){
+            switch ($data->tipo) {
+                case '1':
+                    $opc = 'Hombre';
+                    break;
+                case '2':
+                    $opc = 'Mujer';
+                    break;
+                case '3':
+                    $opc = 'Niño';
+                    break;
+                case '4':
+                    $opc = 'Niño';
+                    break;
+                case '5':
+                    $opc = 'Bebe';
+                    break;
+            }
+
+            $where_data = array(
+                '(UPPER(sexo1) ="' . strtoupper($opc) . 
+                '" or UPPER(sexo2) ="' . strtoupper($opc) . 
+                '" or UPPER(sexo3) ="' . strtoupper($opc) . '")' => null
+            );
+        }
 
         if(isset($data->cadena)){
             $where_data['UPPER(nombreUnico) like '] = '%'.strtoupper($data->cadena).'%';
