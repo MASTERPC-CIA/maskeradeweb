@@ -12,15 +12,18 @@ echo Open('div', array('class' => 'tab-content', 'id' => 'secundaria'));
         echo Close('div');
     echo Close('div');
 
-    echo Open('div', array('class' => 'col-sm-12', 'align' => 'right'));
+    /*echo Open('div', array('class' => 'col-sm-12', 'align' => 'right'));
         echo tagcontent('dir-pagination-controls', '', array('max-size' => 'totalProductos', 'direction-links' => 'true', 'boundary-links' => 'true', 'on-page-change'=>"pageChanged(newPageNumber)"));
-    echo Close('div');
+    echo Close('div');*/
 
     echo Open('div', array('id'=>'sec_bq_sidebar', 'class'=>'col-md-3'));
         $this->load->view('pages/slidebar');
     echo Close('div');
 
     echo Open('div', array('class'=>'col-md-9', 'ng-show'=>'productos.length > 0'));
+        echo Open('div', array('class' => 'col-sm-12', 'align' => 'right'));
+            echo tagcontent('dir-pagination-controls', '', array('max-size' => 'totalProductos', 'direction-links' => 'true', 'boundary-links' => 'true', 'on-page-change'=>"pageChanged(newPageNumber)"));
+        echo Close('div');
         echo Open('div', array('dir-paginate' => 'p in productos|filter:search|itemsPerPage: productosPerPage" total-items="totalProductos" current-page="pagination.current"'));
 
             $imagenbloc = tagcontent('img', '', array('src' => '{{p.img}}', 'alt' => '', 'style' => 'height:140px;width:140px;margin: auto;', 'class' => 'thumbnail'));
