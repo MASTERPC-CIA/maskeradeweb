@@ -60,8 +60,14 @@ class Menu extends CI_Controller
             $where_data['UPPER(nombreUnico) like '] = '%'.strtoupper($data->cadena).'%';
         }
 
-        if(isset($data->festividad)){
-            $where_data['UPPER(festiv1) like '] = '%'.strtoupper($data->festividad).'%';
+        if(isset($data->marca)){
+            $or_where['UPPER(festiv1) like '] = '%'.strtoupper($data->festividad).'%';
+            $or_where['UPPER(festiv2) like '] = '%'.strtoupper($data->festividad).'%';
+            $or_where['UPPER(festiv3) like '] = '%'.strtoupper($data->festividad).'%';
+        }
+
+        if(isset($data->talla)){
+            $where_data['UPPER(talla) like '] = '%'.strtoupper($data->festividad).'%';
         }
 
         $fields = 'codigo, SUBSTRING(nombreUnico,1,10) nombreUnico, img';
@@ -70,7 +76,7 @@ class Menu extends CI_Controller
 
         $limit = $data->pageNumber * $data->productosPerPage;
 
-        $all_product_inicio = $this->generic_model->get('billing_producto', $where_data, $fields, $order_by, $limit);
+        $all_product_inicio = $this->generic_model->get('billing_producto', $where_data, $fields, $order_by, $limit, $or_like_data = null, $and_like_data = null, $group_by = null, $or_where);
         
         if($all_product_inicio){
             $index = ($limit - $data->productosPerPage);

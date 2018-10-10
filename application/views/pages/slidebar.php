@@ -12,7 +12,7 @@
                         </li>  
                         <ul class="sub-menu collapse" id="service">
                             <li ng-repeat='m in marcas'><?php 
-                                echo input(array('type'=>'checkbox', 'ng-click'=>'filtrar(t.festividad)')) . '  {{m.marca}}' ;
+                                echo input(array('type'=>'checkbox', 'ng-click'=>'filtrar_marca(m.marca)')) . '  {{m.marca}}' ;
                             ?></li>
                         </ul>
 
@@ -22,7 +22,7 @@
                         </li>
                         <ul class="sub-menu collapse" id="new">
                             <li ng-repeat='t in tallas'><?php
-                                echo input(array('type'=> 'checkbox', 'ng-click'=>'filtrar(t.talla)')) . '  {{t.talla}}' ;
+                                echo input(array('type'=> 'checkbox', 'ng-click'=>'filtrar_talla(t.talla)')) . '  {{t.talla}}' ;
                             ?></li>
                         </ul>
                         <!-- <li>
