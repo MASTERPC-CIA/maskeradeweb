@@ -11,7 +11,7 @@
  *
  * @author estebanch
  */
-class Stockbodega {
+class stockbodega {
     private $ci;
     
     function __construct(){
