@@ -5,7 +5,7 @@
  *
  * @author MARIUXI
  */
-class products_filter extends CI_Controller {
+class Products_filter extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
