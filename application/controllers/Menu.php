@@ -80,37 +80,6 @@ class Menu extends CI_Controller
 
             $all_product = $this->generic_model->get('billing_producto', $where_data, $fields, $order_by, $data->productosPerPage);
 
-            /*$tipos_files = array('jpg','bmp','png','jpeg');
-
-            foreach ($all_product as $prod) {
-                $bandera = false;
-                foreach ($tipos_files as $value) {
-                    $imagencargar = get_settings('DOWNLOAD_FACT_XML') . $prod->codigo . '.' .$value;
-                    $file_headers = @get_headers($imagencargar);
-                    if(!$file_headers || $file_headers[0] == 'HTTP/1.0 200 OK' || $file_headers[0] == 'HTTP/1.1 200 OK') {
-                        $bandera = true;
-                        break;
-                    }
-                }
-
-                if(!$bandera){
-                    $imagencargar = get_settings('DOWNLOAD_FACT_XML') . 'no_disponible.png';
-                }
-                $prod->img = $imagencargar;
-                $prod->nombreUnico = strstr($prod->nombreUnico, ' ', true);
-            }*/
-            /*$tipos_files = array('.jpg','.bmp','.png','.jpeg');
-            foreach ($all_product as $prod) {
-                $prod->img = get_settings('DOWNLOAD_FACT_XML').'no_disponible.png';
-                foreach ($tipos_files as $type) {
-                    $url = get_settings('DOWNLOAD_FACT_XML').$prod->codigo.$type;
-                    if($this->is_url_exist($url)){
-                        $prod->img = $url;
-                        break;
-                    }
-                }
-            }*/
-
             foreach ($all_product as $prod) {
                 $url = get_settings('DOWNLOAD_FACT_XML').$prod->codigo.'.png';
                 if($this->is_url_exist($url)){
@@ -180,27 +149,6 @@ class Menu extends CI_Controller
         $datac['temas']     = $this->get_festividades_by_menu();
         $datac['marcas']    = $this->get_marcas_by_menu();
         $datac['tallas']    = $this->get_tallas_prods();
-        /*$datac['cant_art']  = $this->get_cant();
-        $datac['orde_por']  = $this->get_ordenar();
-
-        $datac['busq_opcion'] = $opc;
-        $datac['busq_desde']  = 'MENU';
-
-        $val_precio_min = $this->get_min_precio_local1($opc);
-        $val_precio_max = $this->get_max_precio_local2($opc);
-
-        if ($val_precio_min) {
-            $datac['precio_min'] = number_decimal($val_precio_min->min_l1 + ($val_precio_min->min_l1 * get_settings('IVA') / 100));
-        } else {
-            $datac['precio_min'] = 0;
-        }
-
-        if ($val_precio_max) {
-            $datac['precio_max'] = number_decimal($val_precio_max->max_l2 + ($val_precio_max->max_l2 * get_settings('IVA') / 100));
-        } else {
-            $datac['precio_max'] = 0;
-        }*/
-
         $datac["product_count"]   = $all_product;
 
         echo json_encode($datac);
@@ -214,7 +162,8 @@ class Menu extends CI_Controller
             'esSuperproducto' => '1', 
             'estado' => '1'
         );
-        $data        = $this->generic_model->get('billing_producto p', $where_data, $fields);
+        $order_by = array('p.talla'=>'ASC');
+        $data        = $this->generic_model->get('billing_producto p', $where_data, $fields, $order_by);
         return $data;
     }
 
@@ -258,7 +207,8 @@ class Menu extends CI_Controller
         );
 
         $fields     = 'DISTINCT(UPPER(m.nombre)) marca, m.id';
-        $data        = $this->generic_model->get('billing_marca m', $where, $fields);
+        $order_by = array('m.marca'=>'ASC');
+        $data        = $this->generic_model->get('billing_marca m', $where, $fields, $order_by);
 
         return $data;
     }

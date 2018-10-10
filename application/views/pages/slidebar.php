@@ -25,11 +25,11 @@
                                 echo input(array('type'=> 'checkbox', 'ng-click'=>'filtrar(t.talla)')) . '  {{t.talla}}' ;
                             ?></li>
                         </ul>
-                        <li>
+                        <!-- <li>
                             <a href="">
                                 <i class="fa fa-user fa-lg"></i> PRECIOS
                             </a>
-                        </li>
+                        </li> -->
                     </ul>
              </div>
         </div>
