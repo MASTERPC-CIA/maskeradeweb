@@ -206,91 +206,10 @@ class Menu extends CI_Controller
             '!ISNULL(m.nombre) and m.nombre !='=>''
         );
 
-        $fields     = 'DISTINCT(UPPER(m.nombre)) marca, m.id';
+        $fields     = 'UPPER(m.nombre) marca, m.id';
         $order_by = array('m.nombre'=>'ASC');
         $data        = $this->generic_model->get('billing_marca m', $where, $fields, $order_by);
 
         return $data;
-    }
-
-    public function get_min_precio_local1($opc)
-    {
-        $fields     = 'MIN(pvppromo) min_l1';
-        $where_data = array('esSuperproducto' => '1', 'estado' => '1', 'sexo1 like' => $opc);
-        $or_where   = array('sexo2 like' => $opc, 'sexo3 like' => $opc);
-        $res        = $this->generic_model->get('billing_producto bp', $where_data, $fields, null, 1, null, null, null, $or_where);
-        return $res;
-    }
-
-    public function get_max_precio_local2($opc)
-    {
-        $fields     = 'MAX(finpvppromo) max_l2';
-        $where_data = array('esSuperproducto' => '1', 'estado' => '1', 'sexo1 like' => $opc);
-        $or_where   = array('sexo2 like' => $opc, 'sexo3 like' => $opc);
-        $res        = $this->generic_model->get('billing_producto bp', $where_data, $fields, null, 1, null, null, null, $or_where);
-        return $res;
-    }
-
-    public function existe_festividad_busc($fest)
-    {
-        $existe    = false;
-        $cont_fest = 0;
-        while (!$existe && $cont_fest < sizeof($this->list_fest_by_menu)) {
-            if ($fest == $this->list_fest_by_menu[$cont_fest]) {
-                $existe = true;
-            }
-            $cont_fest++;
-        }
-        return $existe;
-    }
-
-    public function existe_marca_busc($marca)
-    {
-        $existe     = false;
-        $cont_marca = 0;
-        while (!$existe && $cont_marca < sizeof($this->list_marcas_by_menu)) {
-            if ($marca == $this->list_marcas_by_menu[$cont_marca]->id) {
-                $existe = true;
-            }
-            $cont_marca++;
-        }
-        return $existe;
-    }
-
-    private function products_in_bod($productos)
-    {
-        $prod = '';
-        foreach ($productos as $key => $value) {
-            $prod[$key] = (object) array(
-                'codigo'              => $value->codigo,
-                'codigo2'             => $value->codigo2,
-                'nombreUnico'         => $value->nombreUnico,
-                'stockactual'         => $value->stockactual,
-                'costopromediokardex' => $value->costopromediokardex,
-                'cod_sup'             => $value->cod_sup,
-            );
-        }
-        return $prod;
-    }
-
-    public function get_cant()
-    {
-
-        $cant_art[0] = array('cod_cant' => '12', 'name_cant' => '12');
-        $cant_art[1] = array('cod_cant' => '24', 'name_cant' => '24');
-        $cant_art[2] = array('cod_cant' => '36', 'name_cant' => '36');
-        $cant_art[3] = array('cod_cant' => '48', 'name_cant' => '48');
-
-        return $cant_art;
-    }
-
-    public function get_ordenar()
-    {
-        $ordenar_por = array(
-            '0' => array('id_orden' => '1', 'crit_orden' => 'Nombre'),
-            '1' => array('id_orden' => '2', 'crit_orden' => 'Precio'),
-        );
-
-        return $ordenar_por;
     }
 }
