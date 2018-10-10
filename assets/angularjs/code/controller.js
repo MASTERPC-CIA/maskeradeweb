@@ -77,6 +77,7 @@ app.controller('CtrlProducts', function($scope, $filter, $location, $http, $rout
             $http.post('Menu/get_productos_x_tipo', send).then(function(result) {
                 $scope.totalProductos = result.data.product_count;
                 $scope.productos = result.data.productos;
+                console.log($scope.productos.length);
                 $scope.cadena = '';
             });
         }
