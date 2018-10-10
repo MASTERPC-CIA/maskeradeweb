@@ -33,7 +33,7 @@ echo Open('div', array('class' => 'tab-content', 'id' => 'secundaria'));
         echo Close('div'); 
     echo Close('div');
 
-    echo Open('div', array('class'=>'col-md-9', 'ng-show' => '!productos'));
+    echo Open('div', array('class'=>'col-md-9', 'ng-show' => 'productos.length === 0'));
         echo tagcontent('div', '<strong style="font-size:20px;color:black">No hay coincidencias en la busqueda...!!!!!!!</strong>', array('class' => 'alert alert-warning col-sm-12', 'role' => 'alert'));
     echo Close('div');
 
