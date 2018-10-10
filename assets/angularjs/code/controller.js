@@ -27,7 +27,7 @@ app.controller('CtrlProducts', function($scope, $filter, $location, $http, $rout
     }
 
     function getResultsPage(pageNumber) {
-        let send = {
+        var send = {
             'tipo':$routeParams.tipo,
             'pageNumber':pageNumber, 
             'productosPerPage':$scope.productosPerPage
