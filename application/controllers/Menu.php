@@ -61,7 +61,7 @@ class Menu extends CI_Controller
         }
 
         if(isset($data->marca)){
-            $or_where['(UPPER(festiv1) like '] = '%'.strtoupper($data->marca).'% OR UPPER(festiv2) like %'.strtoupper($data->marca).'% OR UPPER(festiv3) like %'.strtoupper($data->marca).'%';
+            $where_data['(UPPER(festiv1) like %'.strtoupper($data->marca).'% OR UPPER(festiv2) like %'.strtoupper($data->marca).'% OR UPPER(festiv3) like %'.strtoupper($data->marca).'%'] = '';
         }else{
             $or_where = null;
         }
