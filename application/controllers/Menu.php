@@ -7,18 +7,9 @@ if (!defined('BASEPATH')) {
 class Menu extends CI_Controller
 {
 
-    private $list_fest_by_menu;
-    private $list_marcas_by_menu;
-
     public function __construct()
     {
         parent::__construct();
-
-        $this->load->model('productos_model');
-        $this->load->library('superproducto');
-
-        $this->list_fest_by_menu   = array();
-        $this->list_marcas_by_menu = array();
     }
 
     public function load_productos_view()
@@ -86,7 +77,7 @@ class Menu extends CI_Controller
 
             $where_data['codigo >='] = $hasta;
 
-            $all_product = $this->generic_model->get('billing_productos', $where_data, $fields, $order_by, $data->productosPerPage);
+            $all_product = $this->generic_model->get('billing_producto', $where_data, $fields, $order_by, $data->productosPerPage);
 
             foreach ($all_product as $prod) {
                 $url = get_settings('DOWNLOAD_FACT_XML').$prod->codigo.'.jpg';
