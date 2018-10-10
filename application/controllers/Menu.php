@@ -56,7 +56,7 @@ class Menu extends CI_Controller
         }
 
         if(isset($data->marca)){
-            $where_data['UPPER(talla) like '] = '%'.strtoupper($data->festividad).'%';
+            $where_data['UPPER(talla) like '] = '%'.strtoupper($data->marca).'%';
         }
 
         if(isset($data->talla)){

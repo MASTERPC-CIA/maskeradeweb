@@ -20,7 +20,7 @@
                         </li>  
                         <ul class="sub-menu collapse" id="marca">
                             <li ng-repeat='m in marcas'><?php 
-                                echo input(array('type'=>'checkbox', 'ng-click'=>'filtrar_marca(m.marca)')) . '  {{m.marca}}' ;
+                                echo input(array('type'=>'checkbox', 'ng-click'=>'filtrar_marca(m.id)')) . '  {{m.marca}}' ;
                             ?></li>
                         </ul>
                         <li data-toggle="collapse" data-target="#new" class="collapsed">
