@@ -18,7 +18,7 @@ app.controller('CtrlProducts', function($scope, $filter, $location, $http, $rout
     };
 
     function get_data() {
-        $http.post('Products_menu/get_all_productos', {'tipo':$routeParams.tipo}).then(function(result) {
+        $http.post('Menu/get_all_productos', {'tipo':$routeParams.tipo}).then(function(result) {
             $scope.totalProductos = result.data.product_count;
             $scope.temas = result.data.temas;
             $scope.marcas = result.data.marcas;
@@ -32,7 +32,7 @@ app.controller('CtrlProducts', function($scope, $filter, $location, $http, $rout
             'pageNumber':pageNumber, 
             'productosPerPage':$scope.productosPerPage
         };
-        $http.post('Products_menu/get_productos_x_tipo', send).then(function(result) {
+        $http.post('Menu/get_productos_x_tipo', send).then(function(result) {
             $scope.totalProductos = result.data.product_count;
             $scope.productos = result.data.productos;
         });
@@ -45,7 +45,7 @@ app.controller('CtrlProducts', function($scope, $filter, $location, $http, $rout
             'productosPerPage':$scope.productosPerPage,
             'cadena':cadena
         };
-        $http.post('Products_menu/get_productos_x_tipo', send).then(function(result) {
+        $http.post('Menu/get_productos_x_tipo', send).then(function(result) {
             $scope.totalProductos = result.data.product_count;
             $scope.productos = result.data.productos;
             $scope.cadena = '';
@@ -59,7 +59,7 @@ app.controller('CtrlProducts', function($scope, $filter, $location, $http, $rout
             'productosPerPage':$scope.productosPerPage,
             'festividad':cadena
         };
-        $http.post('Products_menu/get_productos_x_tipo', send).then(function(result) {
+        $http.post('Menu/get_productos_x_tipo', send).then(function(result) {
             $scope.totalProductos = result.data.product_count;
             $scope.productos = result.data.productos;
             $scope.cadena = '';

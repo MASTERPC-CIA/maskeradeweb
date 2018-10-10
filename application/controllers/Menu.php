@@ -4,7 +4,7 @@ if (!defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
 
-class Products_menu extends CI_Controller
+class Menu extends CI_Controller
 {
 
     private $list_fest_by_menu;

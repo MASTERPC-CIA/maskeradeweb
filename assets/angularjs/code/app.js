@@ -15,7 +15,7 @@ app.config(function ($routeProvider) {
         .when('/hombres/', {
             templateUrl: function(params) {
                 params.tipo = 1;
-                var url_complete = 'Products_menu/load_productos_view/'+params.tipo;
+                var url_complete = 'Menu/load_productos_view/'+params.tipo;
                 return url_complete;
             },
             controller: 'CtrlProducts'
@@ -23,7 +23,7 @@ app.config(function ($routeProvider) {
         .when('/mujer', {
             templateUrl: function(params) {
                 params.tipo = 2;
-                var url_complete = 'Products_menu/load_productos_view/'+params.tipo;
+                var url_complete = 'Menu/load_productos_view/'+params.tipo;
                 return url_complete;
             },
             controller: 'CtrlProducts'
@@ -31,7 +31,7 @@ app.config(function ($routeProvider) {
         .when('/ninio', {
             templateUrl: function(params) {
                 params.tipo = 3;
-                var url_complete = 'Products_menu/load_productos_view/'+params.tipo;
+                var url_complete = 'Menu/load_productos_view/'+params.tipo;
                 return url_complete;
             },
             controller: 'CtrlProducts'
@@ -39,7 +39,7 @@ app.config(function ($routeProvider) {
         .when('/ninia', {
             templateUrl: function(params) {
                 params.tipo = 4;
-                var url_complete = 'Products_menu/load_productos_view/'+params.tipo;
+                var url_complete = 'Menu/load_productos_view/'+params.tipo;
                 return url_complete;
             },
             controller: 'CtrlProducts'
@@ -47,7 +47,7 @@ app.config(function ($routeProvider) {
         .when('/bebe', {
             templateUrl: function(params) {
                 params.tipo = 5;
-                var url_complete = 'Products_menu/load_productos_view/'+params.tipo;
+                var url_complete = 'Menu/load_productos_view/'+params.tipo;
                 return url_complete;
             },
             controller: 'CtrlProducts'
